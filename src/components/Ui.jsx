@@ -1,5 +1,5 @@
 import Icon from "./Icon.jsx";
-import { getAmazonImageUrl, trustItems } from "../data/siteData.js";
+import { getAmazonImageUrl, getAmazonUrl, trustItems } from "../data/siteData.js";
 import { withBase } from "../utils/routes.js";
 
 export function Button({ children, icon = "arrow", variant = "primary", className = "", ...props }) {
@@ -113,25 +113,32 @@ export function ProductImage({
   useAmazonImage = true,
 }) {
   const amazonImageUrl = useAmazonImage ? getAmazonImageUrl(product) : "";
+  const fallbackStyle = {
+    backgroundImage: `url(${image})`,
+    backgroundPosition: position,
+    backgroundSize: "520% auto",
+  };
 
   if (amazonImageUrl) {
     return (
-      <div
-        className={`product-image-frame overflow-hidden rounded-md border border-metal-100 bg-white ${frameClassName} ${className}`}
+      <a
+        aria-label={`${product.brand} ${product.model}をAmazonで確認`}
+        className={`product-image-frame block overflow-hidden rounded-md border border-metal-100 bg-white bg-no-repeat ${frameClassName} ${className}`}
+        href={getAmazonUrl(product)}
+        rel="sponsored nofollow noopener"
+        style={fallbackStyle}
+        target="_blank"
       >
-        <iframe
-          border="0"
-          className="h-full w-full bg-white"
-          frameBorder="0"
+        <img
+          alt={alt || `${product.brand} ${product.model} Amazon商品画像`}
+          className="h-full w-full bg-white object-contain p-3 transition duration-500 hover:scale-[1.03]"
           loading="lazy"
-          marginHeight="0"
-          marginWidth="0"
-          scrolling="no"
+          onError={(event) => {
+            event.currentTarget.style.display = "none";
+          }}
           src={amazonImageUrl}
-          style={{ border: "none" }}
-          title={alt || `${product.brand} ${product.model} Amazon商品画像`}
         />
-      </div>
+      </a>
     );
   }
 
@@ -140,11 +147,7 @@ export function ProductImage({
       aria-label={alt || undefined}
       className={`product-image-frame overflow-hidden rounded-md border border-metal-100 bg-white bg-no-repeat ${frameClassName} ${className}`}
       role={alt ? "img" : undefined}
-      style={{
-        backgroundImage: `url(${image})`,
-        backgroundPosition: position,
-        backgroundSize: "520% auto",
-      }}
+      style={fallbackStyle}
     />
   );
 }

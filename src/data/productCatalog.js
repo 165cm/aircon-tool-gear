@@ -515,27 +515,7 @@ export function getAmazonImageUrl(product) {
   const asin = getProductAsin(product);
   if (!asin) return "";
 
-  const tag = import.meta.env.VITE_AMAZON_TAG || site.amazonTag;
-  const params = new URLSearchParams({
-    o: "9",
-    p: "8",
-    l: "as1",
-    asins: asin,
-    ref: "as_ss_li_til",
-    fc1: "1F2937",
-    lc1: "D97706",
-    bc1: "E5E7EB",
-    lt1: "_blank",
-    m: "amazon",
-    f: "ifr",
-  });
-
-  if (tag) {
-    params.set("t", tag);
-    params.set("tracking_id", tag);
-  }
-
-  return `https://rcm-fe.amazon-adsystem.com/e/cm?${params.toString()}`;
+  return `https://m.media-amazon.com/images/P/${asin}.jpg`;
 }
 
 export const affiliateDisclosure =
