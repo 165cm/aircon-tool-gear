@@ -1,9 +1,9 @@
-import beginnerKitImage from "../assets/generated/beginner-kit.png";
-import ctaToolsImage from "../assets/generated/cta-tools.png";
-import heroToolsImage from "../assets/generated/hero-tools.png";
-import intermediateToolsImage from "../assets/generated/intermediate-tools.png";
-import proEquipmentImage from "../assets/generated/pro-equipment.png";
-import productSheetImage from "../assets/generated/product-sheet.png";
+import beginnerKitImage from "../assets/generated/beginner-kit.webp";
+import ctaToolsImage from "../assets/generated/cta-tools.webp";
+import heroToolsImage from "../assets/generated/hero-tools.webp";
+import intermediateToolsImage from "../assets/generated/intermediate-tools.webp";
+import proEquipmentImage from "../assets/generated/pro-equipment.webp";
+import productSheetImage from "../assets/generated/product-sheet.webp";
 import {
   affiliateDisclosure,
   categoryMeta,

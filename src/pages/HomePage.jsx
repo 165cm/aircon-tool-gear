@@ -22,6 +22,9 @@ export default function HomePage({ activePage = "home", onNavigate }) {
         <img
           alt=""
           className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          decoding="async"
+          fetchPriority="high"
+          loading="eager"
           src={images.heroTools}
         />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(3,13,22,0.94)_0%,rgba(5,18,29,0.82)_36%,rgba(7,20,31,0.34)_68%,rgba(7,20,31,0.18)_100%)]" />
@@ -99,6 +102,8 @@ export default function HomePage({ activePage = "home", onNavigate }) {
         <img
           alt=""
           className="absolute inset-0 -z-20 h-full w-full object-cover object-center opacity-70"
+          decoding="async"
+          loading="lazy"
           src={images.ctaTools}
         />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(3,13,22,0.96)_0%,rgba(5,18,29,0.9)_42%,rgba(7,20,31,0.38)_100%)]" />

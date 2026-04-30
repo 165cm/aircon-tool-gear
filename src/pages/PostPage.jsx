@@ -6,7 +6,8 @@ import { scheduledPosts } from "../data/scheduledPosts.js";
 import { withBase } from "../utils/routes.js";
 
 function isPublished(post) {
-  return post.publishDate <= "2026-04-30";
+  const today = new Date().toISOString().slice(0, 10);
+  return post.publishDate <= today;
 }
 
 export default function PostPage({ activePage = "guide", slug = "aircon-tool-beginner-guide", onNavigate }) {
@@ -22,6 +23,7 @@ export default function PostPage({ activePage = "guide", slug = "aircon-tool-beg
           <h1 className="mt-3 text-3xl font-black leading-tight text-navy md:text-5xl">{post.title}</h1>
           <div className="mt-4 flex flex-wrap gap-3 text-sm font-bold text-metal">
             <span>公開日: {post.publishDate}</span>
+            <span>最終更新日: {post.updatedDate || post.publishDate}</span>
             <span>更新計画: 週3回 / 5ヶ月</span>
           </div>
           <p className="mt-6 text-base font-bold leading-8 text-charcoal">{post.summary}</p>
@@ -98,4 +100,3 @@ export default function PostPage({ activePage = "guide", slug = "aircon-tool-beg
     </PageShell>
   );
 }
-

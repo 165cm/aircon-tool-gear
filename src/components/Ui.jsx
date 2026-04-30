@@ -73,6 +73,8 @@ export function LevelCard({ category, onNavigate }) {
       <img
         alt=""
         className="mt-4 aspect-[4/2.5] w-full rounded-md border border-metal-100 object-cover transition duration-500 group-hover:scale-[1.015]"
+        decoding="async"
+        loading="lazy"
         src={category.image}
       />
       <ul className="mt-5 space-y-3">
@@ -171,6 +173,7 @@ export function ProductImage({
         className={`h-full w-full bg-white transition duration-500 hover:scale-[1.03] ${
           imageClassName || "object-contain p-3"
         }`}
+        decoding="async"
         loading="lazy"
         onError={(event) => {
           event.currentTarget.style.display = "none";
