@@ -114,6 +114,7 @@ export function ProductImage({
   amazonImageUrl,
   imageClassName = "",
   linkImage = true,
+  noImageCompact = false,
   useAmazonImage = true,
 }) {
   const [imageFailed, setImageFailed] = useState(false);
@@ -128,9 +129,13 @@ export function ProductImage({
   if (shouldShowNoImage) {
     const noImageContent = (
       <div className="flex h-full w-full flex-col items-center justify-center bg-white px-4 text-center">
-        <Icon className="text-metal-300" name="info" size={34} strokeWidth={1.8} />
-        <span className="mt-3 text-lg font-black tracking-normal text-navy">No Image</span>
-        <span className="mt-1 text-xs font-bold leading-5 text-metal">Amazonの商品画像が未取得です</span>
+        <Icon className="text-metal-300" name="info" size={noImageCompact ? 18 : 34} strokeWidth={1.8} />
+        <span className={`${noImageCompact ? "mt-1 text-[10px]" : "mt-3 text-lg"} font-black tracking-normal text-navy`}>
+          No Image
+        </span>
+        {noImageCompact ? null : (
+          <span className="mt-1 text-xs font-bold leading-5 text-metal">Amazonの商品画像が未取得です</span>
+        )}
       </div>
     );
 
