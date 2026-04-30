@@ -1,5 +1,5 @@
 import Icon from "./Icon.jsx";
-import { trustItems } from "../data/siteData.js";
+import { getAmazonImageUrl, trustItems } from "../data/siteData.js";
 import { withBase } from "../utils/routes.js";
 
 export function Button({ children, icon = "arrow", variant = "primary", className = "", ...props }) {
@@ -109,7 +109,28 @@ export function ProductImage({
   frameClassName = "",
   image,
   position = "center",
+  product,
+  useAmazonImage = true,
 }) {
+  const amazonImageUrl = useAmazonImage ? getAmazonImageUrl(product) : "";
+
+  if (amazonImageUrl) {
+    return (
+      <div
+        className={`product-image-frame overflow-hidden rounded-md border border-metal-100 bg-white ${frameClassName} ${className}`}
+      >
+        <iframe
+          className="h-full w-full bg-white"
+          loading="lazy"
+          sandbox="allow-popups allow-scripts allow-same-origin"
+          scrolling="no"
+          src={amazonImageUrl}
+          title={alt || `${product.brand} ${product.model} Amazon商品画像`}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       aria-label={alt || undefined}
@@ -140,6 +161,7 @@ export function RankingCard({ tool, onNavigate }) {
         frameClassName="mx-auto mt-3 aspect-square w-32 sm:w-36 lg:w-full"
         image={tool.image}
         position={tool.imagePosition}
+        product={tool.product}
       />
       <h3 className="mt-3 text-center text-lg font-black leading-tight text-navy xl:text-xl">{tool.name}</h3>
       <p className="mt-2 min-h-20 text-sm font-bold leading-7 text-charcoal lg:min-h-24 xl:min-h-20">{tool.summary}</p>

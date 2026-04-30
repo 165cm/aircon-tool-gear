@@ -8,6 +8,8 @@ import {
   affiliateDisclosure,
   categoryMeta,
   getAmazonUrl,
+  getAmazonImageUrl,
+  getProductAsin,
   getCategory,
   getProduct,
   getProductsByCategory,
@@ -21,6 +23,8 @@ export {
   affiliateDisclosure,
   categoryMeta,
   getAmazonUrl,
+  getAmazonImageUrl,
+  getProductAsin,
   getCategory,
   getProduct,
   getProductsByCategory,
@@ -95,6 +99,7 @@ export const tools = recommendedSlugs.map((slug, index) => {
     summary: product.summary,
     specs: product.specs.slice(0, 4),
     recommendedFor: [tierLabels[product.tier], product.targetUser],
+    asin: getProductAsin(product),
     product,
   };
 });
@@ -157,6 +162,7 @@ export const productComparisonRows = products.map((product) => ({
   path: `/products/${product.slug}/`,
   image: productSheetImage,
   imagePosition: product.imagePosition,
+  product,
   price: product.priceRange,
   weight: product.specs.find((spec) => spec.includes("kg") || spec.includes("g")) || "-",
   refrigerants: product.specs.find((spec) => spec.includes("R32") || spec.includes("R410A")) || "商品ページ確認",

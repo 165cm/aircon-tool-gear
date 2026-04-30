@@ -59,18 +59,22 @@ export default function ProductReviewPage({ activePage = "products", productSlug
           <div className="mt-7 grid gap-6 lg:grid-cols-[1.05fr_1fr]">
             <div>
               <ProductImage
+                alt={`${product.brand} ${product.model} Amazon商品画像`}
                 frameClassName="aspect-[4/3] w-full rounded-lg border-metal-200"
                 image={images.productSheet}
                 position={product.imagePosition}
+                product={product}
               />
               <div className="mt-4 grid grid-cols-3 gap-3">
-                {[product.imagePosition, "25% 50%", "50% 50%"].map((position) => (
+                {[product.imagePosition, "25% 50%", "50% 50%"].map((position, index) => (
                   <ProductImage
                     alt={`${product.model} thumbnail`}
                     frameClassName="aspect-[4/3] rounded-md border-metal-200"
                     image={images.productSheet}
                     key={position}
                     position={position}
+                    product={index === 0 ? product : null}
+                    useAmazonImage={index === 0}
                   />
                 ))}
               </div>
@@ -182,4 +186,3 @@ function ReviewList({ title, items, mark }) {
     </div>
   );
 }
-

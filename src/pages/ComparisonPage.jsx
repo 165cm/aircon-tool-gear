@@ -48,6 +48,7 @@ export default function ComparisonPage({ activePage = "comparison", onNavigate }
                             frameClassName="size-14 shrink-0"
                             image={row.image}
                             position={row.imagePosition}
+                            product={row.product}
                           />
                           {row.name}
                         </a>

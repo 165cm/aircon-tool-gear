@@ -35,9 +35,11 @@ export default function CategoryPage({ activePage = "vacuum-pump", categorySlug 
                   <p className="text-right text-sm font-black text-orange">{product.priceRange}</p>
                 </div>
                 <ProductImage
+                  alt={`${product.brand} ${product.model} Amazon商品画像`}
                   frameClassName="mx-auto mt-4 aspect-[4/2.7] w-full"
                   image={images.productSheet}
                   position={product.imagePosition}
+                  product={product}
                 />
                 <p className="mt-4 min-h-24 text-sm font-bold leading-7 text-charcoal">{product.summary}</p>
                 <div className="mt-4 grid grid-cols-2 gap-2">
@@ -87,4 +89,3 @@ export default function CategoryPage({ activePage = "vacuum-pump", categorySlug 
     </PageShell>
   );
 }
-
