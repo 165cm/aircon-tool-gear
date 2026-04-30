@@ -120,11 +120,15 @@ export function ProductImage({
         className={`product-image-frame overflow-hidden rounded-md border border-metal-100 bg-white ${frameClassName} ${className}`}
       >
         <iframe
+          border="0"
           className="h-full w-full bg-white"
+          frameBorder="0"
           loading="lazy"
-          sandbox="allow-popups allow-scripts allow-same-origin"
+          marginHeight="0"
+          marginWidth="0"
           scrolling="no"
           src={amazonImageUrl}
+          style={{ border: "none" }}
           title={alt || `${product.brand} ${product.model} Amazon商品画像`}
         />
       </div>

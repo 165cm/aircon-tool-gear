@@ -66,15 +66,14 @@ export default function ProductReviewPage({ activePage = "products", productSlug
                 product={product}
               />
               <div className="mt-4 grid grid-cols-3 gap-3">
-                {[product.imagePosition, "25% 50%", "50% 50%"].map((position, index) => (
+                {[0, 1, 2].map((index) => (
                   <ProductImage
-                    alt={`${product.model} thumbnail`}
+                    alt={`${product.brand} ${product.model} Amazon商品画像 ${index + 1}`}
                     frameClassName="aspect-[4/3] rounded-md border-metal-200"
                     image={images.productSheet}
-                    key={position}
-                    position={position}
-                    product={index === 0 ? product : null}
-                    useAmazonImage={index === 0}
+                    key={`${product.slug}-amazon-image-${index}`}
+                    position={product.imagePosition}
+                    product={product}
                   />
                 ))}
               </div>
