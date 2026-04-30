@@ -512,10 +512,18 @@ export function getProductAsin(product) {
 }
 
 export function getAmazonImageUrl(product) {
-  const asin = getProductAsin(product);
-  if (!asin) return "";
+  return getAmazonImageUrls(product)[0] || "";
+}
 
-  return `https://m.media-amazon.com/images/P/${asin}.jpg`;
+export function getAmazonImageUrls(product) {
+  const asin = getProductAsin(product);
+  if (!asin) return [];
+
+  return [
+    `https://m.media-amazon.com/images/P/${asin}.jpg`,
+    `https://m.media-amazon.com/images/P/${asin}.PT01.jpg`,
+    `https://m.media-amazon.com/images/P/${asin}.PT02.jpg`,
+  ];
 }
 
 export const affiliateDisclosure =

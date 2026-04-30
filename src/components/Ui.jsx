@@ -110,16 +110,46 @@ export function ProductImage({
   image,
   position = "center",
   product,
+  amazonImageUrl,
+  imageClassName = "",
+  linkImage = true,
   useAmazonImage = true,
 }) {
-  const amazonImageUrl = useAmazonImage ? getAmazonImageUrl(product) : "";
+  const resolvedAmazonImageUrl = useAmazonImage ? amazonImageUrl || getAmazonImageUrl(product) : "";
   const fallbackStyle = {
     backgroundImage: `url(${image})`,
     backgroundPosition: position,
     backgroundSize: "520% auto",
   };
 
-  if (amazonImageUrl) {
+  if (resolvedAmazonImageUrl) {
+    const content = (
+      <img
+        alt={alt || `${product?.brand || ""} ${product?.model || ""} Amazon商品画像`.trim()}
+        className={`h-full w-full bg-white transition duration-500 hover:scale-[1.03] ${
+          imageClassName || "object-contain p-3"
+        }`}
+        loading="lazy"
+        onError={(event) => {
+          event.currentTarget.style.display = "none";
+        }}
+        src={resolvedAmazonImageUrl}
+      />
+    );
+
+    if (!linkImage) {
+      return (
+        <div
+          aria-label={alt || undefined}
+          className={`product-image-frame overflow-hidden rounded-md border border-metal-100 bg-white bg-no-repeat ${frameClassName} ${className}`}
+          role={alt ? "img" : undefined}
+          style={fallbackStyle}
+        >
+          {content}
+        </div>
+      );
+    }
+
     return (
       <a
         aria-label={`${product.brand} ${product.model}をAmazonで確認`}
@@ -129,15 +159,7 @@ export function ProductImage({
         style={fallbackStyle}
         target="_blank"
       >
-        <img
-          alt={alt || `${product.brand} ${product.model} Amazon商品画像`}
-          className="h-full w-full bg-white object-contain p-3 transition duration-500 hover:scale-[1.03]"
-          loading="lazy"
-          onError={(event) => {
-            event.currentTarget.style.display = "none";
-          }}
-          src={amazonImageUrl}
-        />
+        {content}
       </a>
     );
   }

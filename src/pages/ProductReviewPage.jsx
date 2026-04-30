@@ -1,8 +1,10 @@
+import { useState } from "react";
 import Header from "../components/Header.jsx";
 import Icon from "../components/Icon.jsx";
 import { Button, PageShell, ProductImage, SpecChip } from "../components/Ui.jsx";
 import {
   affiliateDisclosure,
+  getAmazonImageUrls,
   getAmazonUrl,
   getCategory,
   getProduct,
@@ -20,6 +22,82 @@ function RatingBar({ label, value }) {
         <span className="block h-full bg-orange" style={{ width: `${(value / 5) * 100}%` }} />
       </span>
       <span className="text-right text-navy">{value.toFixed(1)}</span>
+    </div>
+  );
+}
+
+function StarRating({ value }) {
+  const width = `${Math.max(0, Math.min(5, value)) * 20}%`;
+  const stars = [0, 1, 2, 3, 4];
+
+  return (
+    <span aria-label={`総合評価 ${value.toFixed(1)}`} className="relative inline-flex">
+      <span className="flex text-metal-200">
+        {stars.map((star) => (
+          <Icon className="shrink-0" fill="currentColor" key={`base-${star}`} name="star" size={22} strokeWidth={1.4} />
+        ))}
+      </span>
+      <span className="absolute inset-y-0 left-0 flex overflow-hidden text-orange" style={{ width }}>
+        {stars.map((star) => (
+          <Icon className="shrink-0" fill="currentColor" key={`filled-${star}`} name="star" size={22} strokeWidth={1.4} />
+        ))}
+      </span>
+    </span>
+  );
+}
+
+function ProductGallery({ product }) {
+  const imageUrls = getAmazonImageUrls(product);
+  const galleryImages = (imageUrls.length ? imageUrls : [""]).slice(0, 3).map((imageUrl, index) => ({
+    imageClassName:
+      index === 1
+        ? "object-cover object-center scale-125"
+        : index === 2
+          ? "object-cover object-right scale-150"
+          : "object-contain p-3",
+    imageUrl,
+  }));
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const selectedImage = galleryImages[selectedIndex] || galleryImages[0] || { imageClassName: "object-contain p-3", imageUrl: "" };
+
+  return (
+    <div>
+      <ProductImage
+        alt={`${product.brand} ${product.model} Amazon商品画像`}
+        amazonImageUrl={selectedImage.imageUrl}
+        frameClassName="aspect-[4/3] w-full rounded-lg border-metal-200"
+        image={images.productSheet}
+        imageClassName={selectedImage.imageClassName}
+        position={product.imagePosition}
+        product={product}
+      />
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        {galleryImages.map((galleryImage, index) => {
+          const active = selectedIndex === index;
+          return (
+            <button
+              aria-label={`${product.model} 商品画像 ${index + 1} を表示`}
+              className={`rounded-md border-2 bg-white transition duration-300 hover:-translate-y-0.5 ${
+                active ? "border-orange shadow-cta" : "border-metal-200 hover:border-orange/70"
+              }`}
+              key={`${product.slug}-amazon-image-${index}`}
+              onClick={() => setSelectedIndex(index)}
+              type="button"
+            >
+              <ProductImage
+                alt={`${product.brand} ${product.model} Amazon商品画像 ${index + 1}`}
+                amazonImageUrl={galleryImage.imageUrl}
+                frameClassName="aspect-[4/3] border-0"
+                image={images.productSheet}
+                imageClassName={galleryImage.imageClassName}
+                linkImage={false}
+                position={product.imagePosition}
+                product={product}
+              />
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -57,37 +135,13 @@ export default function ProductReviewPage({ activePage = "products", productSlug
           </div>
 
           <div className="mt-7 grid gap-6 lg:grid-cols-[1.05fr_1fr]">
-            <div>
-              <ProductImage
-                alt={`${product.brand} ${product.model} Amazon商品画像`}
-                frameClassName="aspect-[4/3] w-full rounded-lg border-metal-200"
-                image={images.productSheet}
-                position={product.imagePosition}
-                product={product}
-              />
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                {[0, 1, 2].map((index) => (
-                  <ProductImage
-                    alt={`${product.brand} ${product.model} Amazon商品画像 ${index + 1}`}
-                    frameClassName="aspect-[4/3] rounded-md border-metal-200"
-                    image={images.productSheet}
-                    key={`${product.slug}-amazon-image-${index}`}
-                    position={product.imagePosition}
-                    product={product}
-                  />
-                ))}
-              </div>
-            </div>
+            <ProductGallery product={product} />
 
             <div className="grid gap-5 lg:grid-cols-[1fr_240px]">
               <div>
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="font-black text-navy">総合評価</span>
-                  <span className="flex text-orange">
-                    {[0, 1, 2, 3, 4].map((star) => (
-                      <Icon key={star} name="star" size={18} />
-                    ))}
-                  </span>
+                  <StarRating value={product.rating} />
                   <span className="text-lg font-black text-navy">{product.rating.toFixed(1)}</span>
                   {product.reviewCount ? (
                     <span className="text-xs font-bold text-metal">レビュー目安 {product.reviewCount}件</span>
@@ -138,11 +192,8 @@ export default function ProductReviewPage({ activePage = "products", productSlug
             <ReviewList title="代替候補" items={product.alternatives} mark="arrow" />
           </div>
 
-          <div className="mt-6 grid gap-4 border-t border-metal-200 pt-5 md:grid-cols-[1fr_360px]">
-            <div className="rounded-lg border border-orange/40 bg-orange/5 p-4 text-sm font-bold leading-7 text-charcoal">
-              {affiliateDisclosure}
-            </div>
-            <div className="flex flex-col gap-3 md:items-end">
+          <div className="mt-6 border-t border-metal-200 pt-5">
+            <div className="grid gap-3 md:grid-cols-2">
               <a
                 className="cta-sheen inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-orange px-6 py-3 text-base font-black text-white shadow-cta"
                 href={getAmazonUrl(product)}
@@ -162,6 +213,9 @@ export default function ProductReviewPage({ activePage = "products", productSlug
               >
                 同カテゴリを比較する
               </a>
+            </div>
+            <div className="mt-4 rounded-lg border border-orange/40 bg-orange/5 p-4 text-sm font-bold leading-7 text-charcoal">
+              {affiliateDisclosure}
             </div>
           </div>
         </div>
