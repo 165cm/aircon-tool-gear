@@ -1,10 +1,8 @@
-import { useState } from "react";
 import Header from "../components/Header.jsx";
 import Icon from "../components/Icon.jsx";
 import { Button, PageShell, ProductImage, SpecChip } from "../components/Ui.jsx";
 import {
   affiliateDisclosure,
-  getAmazonImageUrls,
   getAmazonUrl,
   getCategory,
   getProduct,
@@ -46,62 +44,6 @@ function StarRating({ value }) {
   );
 }
 
-function ProductGallery({ product }) {
-  const imageUrls = getAmazonImageUrls(product);
-  const galleryImages = (imageUrls.length ? imageUrls : [""]).slice(0, 3).map((imageUrl, index) => ({
-    imageClassName:
-      index === 1
-        ? "object-cover object-center scale-125"
-        : index === 2
-          ? "object-cover object-right scale-150"
-          : "object-contain p-3",
-    imageUrl,
-  }));
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const selectedImage = galleryImages[selectedIndex] || galleryImages[0] || { imageClassName: "object-contain p-3", imageUrl: "" };
-
-  return (
-    <div>
-      <ProductImage
-        alt={`${product.brand} ${product.model} Amazon商品画像`}
-        amazonImageUrl={selectedImage.imageUrl}
-        frameClassName="aspect-[4/3] w-full rounded-lg border-metal-200"
-        image={images.productSheet}
-        imageClassName={selectedImage.imageClassName}
-        position={product.imagePosition}
-        product={product}
-      />
-      <div className="mt-4 grid grid-cols-3 gap-3">
-        {galleryImages.map((galleryImage, index) => {
-          const active = selectedIndex === index;
-          return (
-            <button
-              aria-label={`${product.model} 商品画像 ${index + 1} を表示`}
-              className={`rounded-md border-2 bg-white transition duration-300 hover:-translate-y-0.5 ${
-                active ? "border-orange shadow-cta" : "border-metal-200 hover:border-orange/70"
-              }`}
-              key={`${product.slug}-amazon-image-${index}`}
-              onClick={() => setSelectedIndex(index)}
-              type="button"
-            >
-              <ProductImage
-                alt={`${product.brand} ${product.model} Amazon商品画像 ${index + 1}`}
-                amazonImageUrl={galleryImage.imageUrl}
-                frameClassName="aspect-[4/3] border-0"
-                image={images.productSheet}
-                imageClassName={galleryImage.imageClassName}
-                linkImage={false}
-                position={product.imagePosition}
-                product={product}
-              />
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 export default function ProductReviewPage({ activePage = "products", productSlug = "tasco-ta150sw", onNavigate }) {
   const product = getProduct(productSlug) || getProduct("tasco-ta150sw");
   const category = getCategory(product.category);
@@ -135,7 +77,13 @@ export default function ProductReviewPage({ activePage = "products", productSlug
           </div>
 
           <div className="mt-7 grid gap-6 lg:grid-cols-[1.05fr_1fr]">
-            <ProductGallery product={product} />
+            <ProductImage
+              alt={`${product.brand} ${product.model} Amazon商品画像`}
+              frameClassName="aspect-[4/3] w-full rounded-lg border-metal-200"
+              image={images.productSheet}
+              position={product.imagePosition}
+              product={product}
+            />
 
             <div className="grid gap-5 lg:grid-cols-[1fr_240px]">
               <div>
