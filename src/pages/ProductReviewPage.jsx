@@ -7,7 +7,9 @@ import {
   getCategory,
   getProduct,
   images,
+  products,
   reviews,
+  site,
   tierLabels,
 } from "../data/siteData.js";
 import { withBase } from "../utils/routes.js";
@@ -41,6 +43,44 @@ function StarRating({ value }) {
         ))}
       </span>
     </span>
+  );
+}
+
+function getAlternativeLink(label, currentSlug) {
+  const normalizedLabel = label.toLowerCase();
+  const matchedProduct = products.find((item) => {
+    if (item.slug === currentSlug) return false;
+    const model = item.model.toLowerCase();
+    const brand = item.brand.toLowerCase();
+    return normalizedLabel.includes(model) || model.includes(normalizedLabel) || normalizedLabel.includes(`${brand} ${model}`);
+  });
+
+  if (matchedProduct) {
+    return {
+      external: false,
+      href: withBase(`/products/${matchedProduct.slug}/`),
+      path: `/products/${matchedProduct.slug}/`,
+    };
+  }
+
+  const url = new URL("https://www.amazon.co.jp/s");
+  url.searchParams.set("k", label);
+  if (site.amazonTag) url.searchParams.set("tag", site.amazonTag);
+
+  return {
+    external: true,
+    href: url.toString(),
+  };
+}
+
+function SectionHeading({ icon, children }) {
+  return (
+    <p className="flex items-center gap-2 font-black text-navy">
+      <span aria-hidden="true" className="text-xl">
+        {icon}
+      </span>
+      <span>{children}</span>
+    </p>
   );
 }
 
@@ -130,14 +170,22 @@ export default function ProductReviewPage({ activePage = "products", productSlug
           </div>
 
           <div className="mt-6 rounded-lg border border-metal-200 bg-paper p-4">
-            <p className="font-black text-navy">レビュー要約</p>
+            <SectionHeading icon="📝">レビュー要約</SectionHeading>
             <p className="mt-2 text-sm font-bold leading-7 text-charcoal">{product.reviewSummary}</p>
           </div>
 
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
-            <ReviewList title="購入メリット" items={product.benefits} mark="check" />
-            <ReviewList title="注意点" items={product.cautions} mark="info" />
-            <ReviewList title="代替候補" items={product.alternatives} mark="arrow" />
+            <ReviewList icon="✅" title="購入メリット" items={product.benefits} mark="check" />
+            <ReviewList icon="⚠️" title="注意点" items={product.cautions} mark="info" />
+            <ReviewList
+              currentProduct={product}
+              icon="🔁"
+              isAlternatives
+              items={product.alternatives}
+              mark="arrow"
+              onNavigate={onNavigate}
+              title="代替候補"
+            />
           </div>
 
           <div className="mt-6 border-t border-metal-200 pt-5">
@@ -172,17 +220,36 @@ export default function ProductReviewPage({ activePage = "products", productSlug
   );
 }
 
-function ReviewList({ title, items, mark }) {
+function ReviewList({ title, items, mark, icon, isAlternatives = false, currentProduct, onNavigate }) {
   return (
     <div className="rounded-lg border border-metal-200 bg-paper p-4">
-      <p className="font-black text-navy">{title}</p>
+      <SectionHeading icon={icon}>{title}</SectionHeading>
       <ul className="mt-3 space-y-2">
-        {items.map((item) => (
-          <li className="flex gap-2 text-sm font-bold leading-6 text-charcoal" key={item}>
-            <Icon className="mt-1 shrink-0 text-steel" name={mark} size={15} />
-            {item}
-          </li>
-        ))}
+        {items.map((item) => {
+          const link = isAlternatives ? getAlternativeLink(item, currentProduct?.slug) : null;
+          return (
+            <li className="flex gap-2 text-sm font-bold leading-6 text-charcoal" key={item}>
+              <Icon className="mt-1 shrink-0 text-steel" name={mark} size={15} />
+              {link ? (
+                <a
+                  className="text-steel underline-offset-4 transition hover:text-orange hover:underline"
+                  href={link.href}
+                  onClick={(event) => {
+                    if (link.external || !onNavigate) return;
+                    event.preventDefault();
+                    onNavigate(link.path);
+                  }}
+                  rel={link.external ? "sponsored nofollow noopener" : undefined}
+                  target={link.external ? "_blank" : undefined}
+                >
+                  {item}
+                </a>
+              ) : (
+                item
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

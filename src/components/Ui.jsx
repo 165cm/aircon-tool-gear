@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Icon from "./Icon.jsx";
 import { getAmazonImageUrl, getAmazonUrl, trustItems } from "../data/siteData.js";
 import { withBase } from "../utils/routes.js";
@@ -115,12 +116,48 @@ export function ProductImage({
   linkImage = true,
   useAmazonImage = true,
 }) {
+  const [imageFailed, setImageFailed] = useState(false);
   const resolvedAmazonImageUrl = useAmazonImage ? amazonImageUrl || getAmazonImageUrl(product) : "";
+  const shouldShowNoImage = useAmazonImage && product && (!resolvedAmazonImageUrl || imageFailed);
   const fallbackStyle = {
     backgroundImage: `url(${image})`,
     backgroundPosition: position,
     backgroundSize: "520% auto",
   };
+
+  if (shouldShowNoImage) {
+    const noImageContent = (
+      <div className="flex h-full w-full flex-col items-center justify-center bg-white px-4 text-center">
+        <Icon className="text-metal-300" name="info" size={34} strokeWidth={1.8} />
+        <span className="mt-3 text-lg font-black tracking-normal text-navy">No Image</span>
+        <span className="mt-1 text-xs font-bold leading-5 text-metal">Amazonの商品画像が未取得です</span>
+      </div>
+    );
+
+    if (linkImage && product?.amazonUrl) {
+      return (
+        <a
+          aria-label={`${product.brand} ${product.model}をAmazonで確認`}
+          className={`product-image-frame block overflow-hidden rounded-md border border-metal-100 bg-white ${frameClassName} ${className}`}
+          href={getAmazonUrl(product)}
+          rel="sponsored nofollow noopener"
+          target="_blank"
+        >
+          {noImageContent}
+        </a>
+      );
+    }
+
+    return (
+      <div
+        aria-label={alt || "No Image"}
+        className={`product-image-frame overflow-hidden rounded-md border border-metal-100 bg-white ${frameClassName} ${className}`}
+        role="img"
+      >
+        {noImageContent}
+      </div>
+    );
+  }
 
   if (resolvedAmazonImageUrl) {
     const content = (
@@ -132,6 +169,7 @@ export function ProductImage({
         loading="lazy"
         onError={(event) => {
           event.currentTarget.style.display = "none";
+          setImageFailed(true);
         }}
         src={resolvedAmazonImageUrl}
       />
