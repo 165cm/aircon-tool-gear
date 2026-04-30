@@ -1,4 +1,4 @@
-import { categoryMeta, getCategory, getProduct, products, site } from "../data/productCatalog.js";
+import { categoryMeta, getCategory, getProduct, products, site, starterKits } from "../data/productCatalog.js";
 import { buildCanonical } from "./routes.js";
 
 const defaultDescription =
@@ -36,6 +36,14 @@ export function getPageSeo(route) {
     };
   }
   if (route.type === "beginner") {
+    const kit = starterKits.find((item) => item.courseSlug === route.kitSlug || item.slug === route.kitSlug);
+    if (kit) {
+      return {
+        title: `エアコン工具 ${kit.courseLabel}｜${kit.budgetLabel}で揃える工具セット`,
+        description: `${kit.title}向けに、${kit.budgetLabel}目安で揃えるエアコン工具セットを整理。${kit.note}`,
+        path: `/beginner-kit/${kit.courseSlug}/`,
+      };
+    }
     return {
       title: "エアコン工具 初心者セット｜予算別おすすめ構成",
       description: "DIY・副業初心者・独立志望に向けて、3〜5万円、5〜10万円、10万円以上のエアコン工具セットを予算別に整理。",

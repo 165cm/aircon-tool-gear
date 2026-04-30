@@ -58,7 +58,7 @@ export default function App() {
   }
 
   if (route.type === "beginner") {
-    return <BeginnerPage activePage="beginner-kit" onNavigate={handleNavigate} />;
+    return <BeginnerPage activePage="beginner-kit" kitSlug={route.kitSlug} onNavigate={handleNavigate} />;
   }
 
   if (route.type === "product") {

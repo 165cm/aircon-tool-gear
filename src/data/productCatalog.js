@@ -449,7 +449,10 @@ export const products = [
 export const starterKits = [
   {
     slug: "starter-3-5",
-    label: "3〜5万円コース",
+    courseSlug: "basic",
+    courseLabel: "初級コース",
+    label: "初級コース",
+    budgetLabel: "3〜5万円",
     title: "DIY・月1〜2台の副業",
     price: "約4.8万円",
     productSlugs: ["tasco-ta150sv", "weimall-manifold-r32", "tasco-ta550a", "tasco-ta771st-2"],
@@ -457,7 +460,10 @@ export const starterKits = [
   },
   {
     slug: "starter-5-10",
-    label: "5〜10万円コース",
+    courseSlug: "intermediate",
+    courseLabel: "中級コース",
+    label: "中級コース",
+    budgetLabel: "5〜10万円",
     title: "副業継続・量販店下請け新人",
     price: "約9万円",
     productSlugs: ["tasco-ta150sw", "tasco-ta122gb-1", "bbk-700-dpc", "tasco-ta771bh", "elitech-ld-100-plus"],
@@ -466,7 +472,10 @@ export const starterKits = [
   },
   {
     slug: "starter-pro",
-    label: "10万円以上コース",
+    courseSlug: "advanced",
+    courseLabel: "上級コース",
+    label: "上級コース",
+    budgetLabel: "10万円以上",
     title: "独立志望・年100台以上施工",
     price: "20万〜40万円",
     productSlugs: ["asada-vp154", "tasco-ta122g-2", "bbk-700-dpc", "bbk-rtqs-41", "tasco-ta430d", "bbk-rm350"],

@@ -21,6 +21,10 @@ export function routeToPage(pathname = "/") {
   if (path === "/") return { type: "home", activePage: "home" };
   if (path === "/ranking/") return { type: "ranking", activePage: "ranking" };
   if (path === "/beginner-kit/") return { type: "beginner", activePage: "beginner-kit" };
+  const starterKitMatch = path.match(/^\/beginner-kit\/([^/]+)\/$/);
+  if (starterKitMatch) {
+    return { type: "beginner", activePage: "beginner-kit", kitSlug: starterKitMatch[1] };
+  }
   if (path === "/comparison/") return { type: "comparison", activePage: "comparison" };
   if (path === "/privacy-policy/") return { type: "privacy", activePage: "privacy" };
 
@@ -48,6 +52,9 @@ export function pageIdToPath(pageId = "home") {
     ranking: "/ranking/",
     "beginner-kit": "/beginner-kit/",
     beginner: "/beginner-kit/",
+    "starter-basic": "/beginner-kit/basic/",
+    "starter-intermediate": "/beginner-kit/intermediate/",
+    "starter-advanced": "/beginner-kit/advanced/",
     comparison: "/comparison/",
     privacy: "/privacy-policy/",
     guide: "/posts/aircon-tool-beginner-guide/",

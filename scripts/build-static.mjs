@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { categoryMeta, products, site } from "../src/data/productCatalog.js";
+import { categoryMeta, products, site, starterKits } from "../src/data/productCatalog.js";
 import { scheduledPosts } from "../src/data/scheduledPosts.js";
 
 const root = process.cwd();
@@ -13,6 +13,9 @@ const routes = [
   meta("/", "エアコン工具ギア｜エアコン修理工具おすすめ比較", "エアコン修理・取付に必要な専門工具を、初心者セットからプロ向け装備まで現場目線で比較。"),
   meta("/ranking/", "エアコン工具おすすめランキング｜必須工具TOP5", "TA150SW、TA122GB-1、BBK 700-DPC、TA771BH、TA430Dを中心に、まず揃えたい工具を紹介。"),
   meta("/beginner-kit/", "エアコン工具 初心者セット｜予算別おすすめ構成", "DIY・副業初心者・独立志望に向けて、エアコン工具セットを予算別に整理。"),
+  ...starterKits.map((kit) =>
+    meta(`/beginner-kit/${kit.courseSlug}/`, `エアコン工具 ${kit.courseLabel}｜${kit.budgetLabel}で揃える工具セット`, `${kit.title}向けに、${kit.budgetLabel}目安で揃えるエアコン工具セットを整理。${kit.note}`),
+  ),
   meta("/comparison/", "エアコン修理工具 比較表｜価格・重量・対応冷媒", "18商品の価格帯、重量、対応冷媒、性能、初心者向け度、プロ向け度を一覧比較。"),
   meta("/privacy-policy/", "利用規約・プライバシーポリシー", "エアコン工具ギアの広告、アフィリエイト、個人情報、Cookie、免責事項に関する基本方針。"),
   ...categoryMeta.map((category) =>
