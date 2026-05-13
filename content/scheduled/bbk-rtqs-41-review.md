@@ -1,7 +1,7 @@
 ---
 slug: bbk-rtqs-41-review
 title: RTQS-41 狭所作業｜現場目線レビュー
-publishDate: 2026-06-10
+publishDate: 2026-05-14
 keyword: ラチェットトルクレンチ
 summary: RTQS-41 狭所作業｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

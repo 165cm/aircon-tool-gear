@@ -3,16 +3,15 @@ import Icon from "../components/Icon.jsx";
 import { Button, PageShell } from "../components/Ui.jsx";
 import { affiliateDisclosure, seoTargets } from "../data/siteData.js";
 import { scheduledPosts } from "../data/scheduledPosts.js";
+import { isScheduledPostPublished, resolveBuildDate } from "../utils/publishing.js";
 import { withBase } from "../utils/routes.js";
 
-function isPublished(post) {
-  const today = new Date().toISOString().slice(0, 10);
-  return post.publishDate <= today;
-}
-
 export default function PostPage({ activePage = "guide", slug = "aircon-tool-beginner-guide", onNavigate }) {
+  const buildDate = resolveBuildDate();
   const post = scheduledPosts.find((item) => item.slug === slug) || scheduledPosts[0];
-  const related = scheduledPosts.filter((item) => item.slug !== post.slug).slice(0, 6);
+  const related = scheduledPosts
+    .filter((item) => item.slug !== post.slug && isScheduledPostPublished(item, buildDate))
+    .slice(0, 6);
 
   return (
     <PageShell>
@@ -80,9 +79,7 @@ export default function PostPage({ activePage = "guide", slug = "aircon-tool-beg
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {related.map((item) => (
               <a
-                className={`rounded-lg border border-metal-200 p-4 transition hover:border-orange ${
-                  isPublished(item) ? "bg-white" : "bg-paper"
-                }`}
+                className="rounded-lg border border-metal-200 bg-white p-4 transition hover:border-orange"
                 href={withBase(`/posts/${item.slug}/`)}
                 key={item.slug}
               >

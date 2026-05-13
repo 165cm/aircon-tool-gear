@@ -1,7 +1,7 @@
 ---
 slug: torque-wrench-safety
 title: R32時代にトルクレンチが必要な理由
-publishDate: 2026-05-11
+publishDate: 2026-05-04
 keyword: トルクレンチ エアコン
 summary: R32時代にトルクレンチが必要な理由について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

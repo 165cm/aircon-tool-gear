@@ -2,7 +2,7 @@
 slug: 700-dpc-vs-ta550a
 title: BBK 700-DPCとTASCO TA550Aを比較｜副業ならどちらか
 keyword: 700-DPC TA550A 比較
-publishDate: 2026-05-15
+publishDate: 2026-05-07
 summary: 電動対応のBBK 700-DPCと軽量手動のTASCO TA550Aを、価格、疲労感、仕上がり、施工台数の観点で比較します。
 ---
 

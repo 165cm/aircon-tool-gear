@@ -5,9 +5,12 @@ import CategoryPage from "./pages/CategoryPage.jsx";
 import ComparisonPage from "./pages/ComparisonPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import PostPage from "./pages/PostPage.jsx";
+import PostsPage from "./pages/PostsPage.jsx";
 import ProductReviewPage from "./pages/ProductReviewPage.jsx";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage.jsx";
 import RankingPage from "./pages/RankingPage.jsx";
+import { scheduledPosts } from "./data/scheduledPosts.js";
+import { isScheduledPostPublished } from "./utils/publishing.js";
 import { applySeo } from "./utils/seo.js";
 import { pageIdToPath, routeToPage, withBase } from "./utils/routes.js";
 
@@ -78,7 +81,15 @@ export default function App() {
   }
 
   if (route.type === "post") {
+    const post = scheduledPosts.find((item) => item.slug === route.slug);
+    if (!isScheduledPostPublished(post)) {
+      return <PlaceholderPage activePage="not-found" onNavigate={handleNavigate} />;
+    }
     return <PostPage activePage="guide" onNavigate={handleNavigate} slug={route.slug} />;
+  }
+
+  if (route.type === "posts") {
+    return <PostsPage activePage="guide" onNavigate={handleNavigate} />;
   }
 
   if (route.type === "privacy") {

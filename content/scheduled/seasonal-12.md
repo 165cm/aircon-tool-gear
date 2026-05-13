@@ -1,7 +1,7 @@
 ---
 slug: seasonal-12
 title: R410AとR32工具の互換で見るべき点
-publishDate: 2026-08-03
+publishDate: 2026-05-29
 keyword: エアコン工具 おすすめ
 summary: R410AとR32工具の互換で見るべき点について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

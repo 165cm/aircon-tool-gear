@@ -50,6 +50,7 @@ npm run dev
 npm run build
 npm run preview
 npm run content:generate
+npm run content:validate
 ```
 
 `npm run build` は、Viteのビルド後に `scripts/build-static.mjs` を実行します。
@@ -151,11 +152,24 @@ src/data/scheduledPosts.js
 BUILD_DATE=2026-05-25 npm run build
 ```
 
-予約記事のデータ生成をまとめて行う場合:
+予約記事のfrontmatterから `src/data/scheduledPosts.js` を同期する場合:
 
 ```bash
 npm run content:generate
 ```
+
+予約記事の本数、公開日、Markdownとデータファイルの同期を検証する場合:
+
+```bash
+npm run content:validate
+```
+
+現在の公開計画:
+
+- 予約記事は全76本
+- 2026-05-31までに54本公開
+- 2026-07-31までに全記事公開
+- 最終予約日は2026-07-20
 
 ## GitHub Pagesデプロイ
 
@@ -169,7 +183,7 @@ npm run content:generate
 
 - `main` へのpush
 - 手動実行
-- cron実行: 月・水・金 00:00 UTC
+- cron実行: 毎日 00:00 UTC
 
 日本時間では午前9時相当です。
 

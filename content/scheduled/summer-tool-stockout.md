@@ -2,7 +2,7 @@
 slug: summer-tool-stockout
 title: 夏前にエアコン工具の在庫切れを避ける買い方
 keyword: エアコン工具 在庫切れ 夏
-publishDate: 2026-05-25
+publishDate: 2026-05-11
 summary: 繁忙期前に真空ポンプ、ゲージ、フレアツール、トルクレンチの在庫切れを避けるための買う順番と代替候補を整理します。
 ---
 

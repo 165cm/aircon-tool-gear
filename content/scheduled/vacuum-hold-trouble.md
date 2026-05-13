@@ -2,7 +2,7 @@
 slug: vacuum-hold-trouble
 title: 真空引き後にゲージが戻る原因と切り分け手順
 keyword: 真空引き ゲージ 戻る 原因
-publishDate: 2026-05-08
+publishDate: 2026-05-04
 summary: 真空引き後に針が戻る時の原因を、接続漏れ、ホース、バルブ、フレア不良に分けてチェックする流れで解説します。
 ---
 

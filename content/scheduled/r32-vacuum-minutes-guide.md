@@ -2,7 +2,7 @@
 slug: r32-vacuum-minutes-guide
 title: R32の真空引きは何分必要か｜時間より見るべき基準
 keyword: R32 真空引き 何分
-publishDate: 2026-05-04
+publishDate: 2026-05-02
 summary: R32施工で真空引き時間だけを目安にしないために、到達真空度、保持確認、ゲージの戻り方を初心者向けに整理します。
 ---
 

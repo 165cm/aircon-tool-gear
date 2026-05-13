@@ -4,6 +4,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { categoryMeta, products, site, starterKits } from "../src/data/productCatalog.js";
 import { scheduledPosts } from "../src/data/scheduledPosts.js";
+import { getPublishedScheduledPosts, resolveBuildDate } from "../src/utils/publishing.js";
 import { routeToPage } from "../src/utils/routes.js";
 import { getPageSeo } from "../src/utils/seo.js";
 
@@ -11,9 +12,9 @@ const root = process.cwd();
 const dist = path.join(root, "dist");
 const execFileAsync = promisify(execFile);
 const template = await readFile(path.join(dist, "index.html"), "utf8");
-const buildDate = process.env.BUILD_DATE || new Date().toISOString().slice(0, 10);
+const buildDate = resolveBuildDate(process.env.BUILD_DATE || process.env.VITE_BUILD_DATE);
 const gitLastmod = await getGitLastmod(buildDate);
-const publishedPosts = scheduledPosts.filter((post) => post.publishDate <= buildDate);
+const publishedPosts = getPublishedScheduledPosts(scheduledPosts, buildDate);
 
 const routes = [
   meta("/", "エアコン工具ギア｜エアコン修理工具おすすめ比較", "エアコン修理・取付に必要な専門工具を、初心者セットからプロ向け装備まで現場目線で比較。"),
@@ -23,6 +24,7 @@ const routes = [
     meta(`/beginner-kit/${kit.courseSlug}/`, `エアコン工具 ${kit.courseLabel}｜${kit.budgetLabel}で揃える工具セット`, `${kit.title}向けに、${kit.budgetLabel}目安で揃えるエアコン工具セットを整理。${kit.note}`),
   ),
   meta("/comparison/", "エアコン修理工具 比較表｜価格・重量・対応冷媒", "18商品の価格帯、重量、対応冷媒、性能、初心者向け度、プロ向け度を一覧比較。"),
+  meta("/posts/", "エアコン工具の選び方記事一覧", "エアコン工具の選び方、型番比較、施工トラブル対策、季節需要に関する公開済み記事を一覧で確認できます。"),
   meta("/privacy-policy/", "利用規約・プライバシーポリシー", "エアコン工具ギアの広告、アフィリエイト、個人情報、Cookie、免責事項に関する基本方針。"),
   ...categoryMeta.map((category) =>
     meta(`/categories/${category.slug}/`, `${category.label}おすすめ比較｜エアコン修理工具`, `${category.keyword}で探す人向けに、3価格帯の工具を比較。${category.summary}`),
@@ -115,6 +117,12 @@ function staticBody(page, fallback) {
   if (page.type === "post") {
     const post = scheduledPosts.find((item) => item.slug === page.slug);
     return `<section><h2>${escapeHtml(post?.keyword || "エアコン工具")}</h2><p>${escapeHtml(post?.summary || fallback)}</p></section>`;
+  }
+  if (page.type === "posts") {
+    return `<section><h2>公開済み記事</h2><ul>${publishedPosts
+      .toReversed()
+      .map((post) => `<li><a href="${escapeHtml(`${site.url}/posts/${post.slug}/`)}">${escapeHtml(post.publishDate)} ${escapeHtml(post.title)}</a></li>`)
+      .join("")}</ul></section>`;
   }
   return `<section><h2>主要カテゴリ</h2><ul>${categoryMeta
     .map((category) => `<li>${escapeHtml(category.label)}: ${escapeHtml(category.summary)}</li>`)

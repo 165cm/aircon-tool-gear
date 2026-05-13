@@ -1,7 +1,7 @@
 ---
 slug: ta122gb-1-vs-fullkit
 title: TA122GB-1とフルキットの違い
-publishDate: 2026-06-26
+publishDate: 2026-05-18
 keyword: TA122GB-1 比較
 summary: TA122GB-1とフルキットの違いについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

@@ -1,7 +1,7 @@
 ---
 slug: seasonal-09
 title: Amazonで工具を買う前の型番確認
-publishDate: 2026-07-27
+publishDate: 2026-05-26
 keyword: エアコン工具 おすすめ
 summary: Amazonで工具を買う前の型番確認について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

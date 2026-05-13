@@ -1,7 +1,7 @@
 ---
 slug: recovery-machine-law
 title: 冷媒回収機を買う前に知るべき法律と用途
-publishDate: 2026-05-15
+publishDate: 2026-05-06
 keyword: 冷媒回収機
 summary: 冷媒回収機を買う前に知るべき法律と用途について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

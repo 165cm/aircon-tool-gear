@@ -1,7 +1,7 @@
 ---
 slug: tasco-ta430d-review
 title: TA430D リークテスター 評判｜現場目線レビュー
-publishDate: 2026-06-12
+publishDate: 2026-05-15
 keyword: リークテスター エアコン
 summary: TA430D リークテスター 評判｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

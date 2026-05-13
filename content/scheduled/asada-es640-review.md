@@ -1,7 +1,7 @@
 ---
 slug: asada-es640-review
 title: アサダ ES640 比較｜現場目線レビュー
-publishDate: 2026-06-19
+publishDate: 2026-05-16
 keyword: フロン回収装置
 summary: アサダ ES640 比較｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

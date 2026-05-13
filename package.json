@@ -8,6 +8,7 @@
     "build": "vite build && node scripts/build-static.mjs",
     "build:vite": "vite build",
     "content:generate": "node scripts/generate-scheduled-content.mjs",
+    "content:validate": "node scripts/validate-scheduled-content.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,7 +1,7 @@
 ---
 slug: 700-dpc-vs-rex-rf20s
 title: BBK 700-DPCとREX RF20SⅡの違い
-publishDate: 2026-06-29
+publishDate: 2026-05-18
 keyword: 700-DPC REX RF20S
 summary: BBK 700-DPCとREX RF20SⅡの違いについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

@@ -1,7 +1,7 @@
 ---
 slug: tasco-ta122gb-1-review
 title: TA122GB-1 使い方｜現場目線レビュー
-publishDate: 2026-06-03
+publishDate: 2026-05-13
 keyword: ゲージマニホールド R32
 summary: TA122GB-1 使い方｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

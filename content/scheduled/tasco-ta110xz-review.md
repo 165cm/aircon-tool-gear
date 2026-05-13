@@ -1,7 +1,7 @@
 ---
 slug: tasco-ta110xz-review
 title: TA110XZ ツインサンダー240｜現場目線レビュー
-publishDate: 2026-06-22
+publishDate: 2026-05-17
 keyword: フロン回収機
 summary: TA110XZ ツインサンダー240｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

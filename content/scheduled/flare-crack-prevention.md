@@ -2,7 +2,7 @@
 slug: flare-crack-prevention
 title: フレア割れを防ぐ工具選びと加工前チェック
 keyword: フレア割れ 原因 エアコン
-publishDate: 2026-05-11
+publishDate: 2026-05-05
 summary: フレア割れの原因になりやすいバリ、偏心不足、締め過ぎ、銅管端面の荒れを防ぐ工具と確認手順を整理します。
 ---
 

@@ -2,7 +2,7 @@
 slug: flare-nut-torque-14-nm
 title: フレアナット1/4の締付トルク目安と工具の選び方
 keyword: フレアナット トルク 1/4 何N・m
-publishDate: 2026-05-06
+publishDate: 2026-05-03
 summary: フレアナット1/4を締める時の確認ポイント、トルクレンチを使う理由、締め過ぎによる漏れリスクを整理します。
 ---
 

@@ -27,6 +27,7 @@ export function routeToPage(pathname = "/") {
   }
   if (path === "/comparison/") return { type: "comparison", activePage: "comparison" };
   if (path === "/privacy-policy/") return { type: "privacy", activePage: "privacy" };
+  if (path === "/posts/") return { type: "posts", activePage: "guide" };
 
   const categoryMatch = path.match(/^\/categories\/([^/]+)\/$/);
   if (categoryMatch) {
@@ -57,7 +58,7 @@ export function pageIdToPath(pageId = "home") {
     "starter-advanced": "/beginner-kit/advanced/",
     comparison: "/comparison/",
     privacy: "/privacy-policy/",
-    guide: "/posts/aircon-tool-beginner-guide/",
+    guide: "/posts/",
     professional: "/categories/recovery-machine/",
   };
   if (direct[pageId]) return direct[pageId];

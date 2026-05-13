@@ -1,7 +1,7 @@
 ---
 slug: seasonal-21
 title: 初心者が中華OEMを選ぶ時の注意
-publishDate: 2026-08-24
+publishDate: 2026-06-15
 keyword: エアコン工具 おすすめ
 summary: 初心者が中華OEMを選ぶ時の注意について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

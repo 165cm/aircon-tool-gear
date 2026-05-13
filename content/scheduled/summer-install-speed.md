@@ -1,7 +1,7 @@
 ---
 slug: summer-install-speed
 title: 夏の繁忙期に作業時間を削る工具投資
-publishDate: 2026-05-18
+publishDate: 2026-05-07
 keyword: エアコン工事 繁忙期
 summary: 夏の繁忙期に作業時間を削る工具投資について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

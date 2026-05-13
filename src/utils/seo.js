@@ -1,5 +1,6 @@
 import { categoryMeta, getCategory, getProduct, products, site, starterKits } from "../data/productCatalog.js";
 import { scheduledPosts } from "../data/scheduledPosts.js";
+import { getPublishedScheduledPosts } from "./publishing.js";
 import { buildCanonical } from "./routes.js";
 
 const defaultDescription =
@@ -119,7 +120,7 @@ export function getPageSeo(route) {
           articleJsonLd(post.title, `/posts/${post.slug}/`, post),
           breadcrumbJsonLd([
             ["ホーム", "/"],
-            ["選び方", "/posts/aircon-tool-beginner-guide/"],
+            ["選び方", "/posts/"],
             [post.title, `/posts/${post.slug}/`],
           ]),
           articleFaqJsonLd(post),
@@ -131,6 +132,22 @@ export function getPageSeo(route) {
       description: "エアコン修理工具を初めて揃える人向けに、真空ポンプ、ゲージ、フレア、トルク、リーク確認の選び方を解説。",
       path: `/posts/${route.slug}/`,
       jsonLd: articleJsonLd("エアコン工具の選び方", `/posts/${route.slug}/`),
+    };
+  }
+  if (route.type === "posts") {
+    const publishedPosts = getPublishedScheduledPosts(scheduledPosts);
+    return {
+      title: "エアコン工具の選び方記事一覧",
+      description: "エアコン工具の選び方、型番比較、施工トラブル対策、季節需要に関する公開済み記事を一覧で確認できます。",
+      path: "/posts/",
+      jsonLd: schemaGraph("/posts/", [
+        itemListJsonLd(publishedPosts, "/posts/"),
+        breadcrumbJsonLd([
+          ["ホーム", "/"],
+          ["選び方", "/posts/"],
+        ]),
+        toolSelectionHowToJsonLd("/posts/", "エアコン工具"),
+      ]),
     };
   }
   if (route.type === "privacy") {
@@ -236,8 +253,18 @@ function itemListJsonLd(items, path) {
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: item.model || item.label || item.name,
-      url: buildCanonical(item.model ? `/products/${item.slug}/` : item.courseSlug ? `/beginner-kit/${item.courseSlug}/` : item.slug && item.label ? `/categories/${item.slug}/` : path),
+      name: item.model || item.label || item.name || item.title,
+      url: buildCanonical(
+        item.model
+          ? `/products/${item.slug}/`
+          : item.courseSlug
+            ? `/beginner-kit/${item.courseSlug}/`
+            : item.slug && item.label
+              ? `/categories/${item.slug}/`
+              : item.slug && item.title
+                ? `/posts/${item.slug}/`
+                : path,
+      ),
     })),
   };
 }

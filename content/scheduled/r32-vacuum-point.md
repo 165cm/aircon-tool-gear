@@ -1,7 +1,7 @@
 ---
 slug: r32-vacuum-point
 title: R32施工で真空引きを軽く見ないための基準
-publishDate: 2026-05-20
+publishDate: 2026-05-08
 keyword: R32 真空引き
 summary: R32施工で真空引きを軽く見ないための基準について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

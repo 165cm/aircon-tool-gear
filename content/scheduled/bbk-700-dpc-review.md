@@ -1,7 +1,7 @@
 ---
 slug: bbk-700-dpc-review
 title: BBK 700-DPC レビュー｜現場目線レビュー
-publishDate: 2026-06-05
+publishDate: 2026-05-13
 keyword: フレアツール おすすめ
 summary: BBK 700-DPC レビュー｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

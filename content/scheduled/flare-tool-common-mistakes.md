@@ -1,7 +1,7 @@
 ---
 slug: flare-tool-common-mistakes
 title: フレアツール選びで起きる失敗と対策
-publishDate: 2026-05-08
+publishDate: 2026-05-03
 keyword: フレアツール エアコン
 summary: フレアツール選びで起きる失敗と対策について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

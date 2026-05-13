@@ -48,7 +48,7 @@ export const navItems = [
   { id: "vacuum-pump", label: "真空ポンプ", path: "/categories/vacuum-pump/" },
   { id: "manifold-gauge", label: "ゲージ", path: "/categories/manifold-gauge/" },
   { id: "comparison", label: "比較表", path: "/comparison/" },
-  { id: "guide", label: "選び方", path: "/posts/aircon-tool-beginner-guide/" },
+  { id: "guide", label: "選び方", path: "/posts/" },
 ];
 
 export const categories = [

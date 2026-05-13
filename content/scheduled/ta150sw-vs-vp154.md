@@ -2,7 +2,7 @@
 slug: ta150sw-vs-vp154
 title: TA150SWとVP154を比較｜コードレス真空ポンプは必要か
 keyword: TA150SW VP154 比較
-publishDate: 2026-05-18
+publishDate: 2026-05-08
 summary: AC電源のTA150SWとコードレスのアサダVP154を、現場の電源確保、重量、真空性能、投資回収で比較します。
 ---
 

@@ -1,7 +1,7 @@
 ---
 slug: vacuum-pump-first-choice
 title: 最初の真空ポンプはどこを見るべきか
-publishDate: 2026-05-04
+publishDate: 2026-05-01
 keyword: 真空ポンプ エアコン おすすめ
 summary: 最初の真空ポンプはどこを見るべきかについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

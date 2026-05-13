@@ -1,7 +1,7 @@
 ---
 slug: leak-check-basic
 title: リークチェックを早く正確にする工具選び
-publishDate: 2026-05-13
+publishDate: 2026-05-05
 keyword: リークテスター エアコン
 summary: リークチェックを早く正確にする工具選びについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

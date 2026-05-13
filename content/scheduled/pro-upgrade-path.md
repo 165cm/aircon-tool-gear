@@ -1,7 +1,7 @@
 ---
 slug: pro-upgrade-path
 title: 副業からプロへ工具をランクアップする順番
-publishDate: 2026-05-22
+publishDate: 2026-05-09
 keyword: エアコン職人 工具
 summary: 副業からプロへ工具をランクアップする順番について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

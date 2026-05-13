@@ -1,7 +1,7 @@
 ---
 slug: seasonal-28
 title: 工具レビュー記事の読み方
-publishDate: 2026-09-09
+publishDate: 2026-07-01
 keyword: エアコン工具 おすすめ
 summary: 工具レビュー記事の読み方について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

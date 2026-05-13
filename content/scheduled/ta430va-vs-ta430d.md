@@ -1,7 +1,7 @@
 ---
 slug: ta430va-vs-ta430d
 title: TA430VAとTA430Dの違い
-publishDate: 2026-07-03
+publishDate: 2026-05-19
 keyword: TA430VA TA430D 違い
 summary: TA430VAとTA430Dの違いについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

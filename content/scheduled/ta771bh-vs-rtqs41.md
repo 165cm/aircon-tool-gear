@@ -1,7 +1,7 @@
 ---
 slug: ta771bh-vs-rtqs41
 title: TA771BHとRTQS-41はどちらを選ぶべきか
-publishDate: 2026-07-01
+publishDate: 2026-05-19
 keyword: TA771BH RTQS-41
 summary: TA771BHとRTQS-41はどちらを選ぶべきかについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

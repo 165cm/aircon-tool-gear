@@ -1,7 +1,7 @@
 ---
 slug: seasonal-31
 title: エアコン工具をAmazonで買うメリットと注意
-publishDate: 2026-09-16
+publishDate: 2026-07-08
 keyword: エアコン工具 おすすめ
 summary: エアコン工具をAmazonで買うメリットと注意について、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

@@ -1,7 +1,7 @@
 ---
 slug: bbk-rm350-review
 title: BBK RM350 冷媒回収機｜現場目線レビュー
-publishDate: 2026-06-17
+publishDate: 2026-05-16
 keyword: 冷媒回収機 おすすめ
 summary: BBK RM350 冷媒回収機｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

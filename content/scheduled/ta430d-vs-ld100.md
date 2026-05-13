@@ -2,7 +2,7 @@
 slug: ta430d-vs-ld100
 title: TA430DとLD-100+を比較｜リークテスターはどこで差が出るか
 keyword: TA430D LD-100+ 比較
-publishDate: 2026-05-20
+publishDate: 2026-05-09
 summary: 赤外線NDIR式のTA430Dとエントリー機LD-100+を、微量漏れ、誤反応、校正、現場適性で比較します。
 ---
 

@@ -1,7 +1,7 @@
 ---
 slug: price-vs-durability
 title: 安い工具とプロ工具の差が出るポイント
-publishDate: 2026-05-25
+publishDate: 2026-05-10
 keyword: エアコン工具 比較
 summary: 安い工具とプロ工具の差が出るポイントについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。
 ---

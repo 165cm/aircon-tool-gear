@@ -2,7 +2,7 @@
 slug: gas-leak-not-found
 title: ガス漏れが見つからない時のリークチェック手順
 keyword: ガス漏れ 見つからない エアコン
-publishDate: 2026-05-13
+publishDate: 2026-05-06
 summary: 漏れ箇所が見つからない時に、検知液、電子式リークテスター、真空保持確認をどう組み合わせるかを解説します。
 ---
 
