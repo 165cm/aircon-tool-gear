@@ -40,12 +40,12 @@ export default function Header({ activePage = "home", onNavigate }) {
 
         <a
           className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-orange px-4 py-3 text-sm font-black text-white shadow-cta transition hover:-translate-y-0.5 hover:bg-orange-500 active:translate-y-0 md:px-5"
-          href={withBase("/ranking/")}
-          onClick={(event) => goTo(event, "ranking")}
+          href={withBase("/beginner-kit/")}
+          onClick={(event) => goTo(event, "beginner-kit")}
         >
           <Icon name="trophy" size={18} />
-          <span className="hidden sm:inline">道具ランキングを見る</span>
-          <span className="sm:hidden">ランキング</span>
+          <span className="hidden sm:inline">初心者セットを見る</span>
+          <span className="sm:hidden">セット</span>
         </a>
       </div>
     </header>

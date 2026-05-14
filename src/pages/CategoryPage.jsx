@@ -1,7 +1,8 @@
 import Header from "../components/Header.jsx";
 import Icon from "../components/Icon.jsx";
 import { Button, PageShell, ProductImage, SectionTitle, SpecChip } from "../components/Ui.jsx";
-import { categoryMeta, getAmazonUrl, getCategory, getProductsByCategory, images, tierLabels } from "../data/siteData.js";
+import { categoryMeta, getAmazonUrl, getCategory, getDisplayPriceBand, getProductsByCategory, images, tierLabels } from "../data/siteData.js";
+import { trackAmazonClick } from "../utils/analytics.js";
 import { withBase } from "../utils/routes.js";
 
 export default function CategoryPage({ activePage = "vacuum-pump", categorySlug = "vacuum-pump", onNavigate }) {
@@ -32,7 +33,7 @@ export default function CategoryPage({ activePage = "vacuum-pump", categorySlug 
                     <h2 className="mt-3 text-xl font-black leading-tight text-navy">{product.model}</h2>
                     <p className="mt-1 text-sm font-bold text-metal">{product.brand}</p>
                   </div>
-                  <p className="text-right text-sm font-black text-orange">{product.priceRange}</p>
+                  <p className="text-right text-sm font-black text-orange">{getDisplayPriceBand(product)}</p>
                 </div>
                 <ProductImage
                   alt={`${product.brand} ${product.model} Amazon商品画像`}
@@ -66,10 +67,18 @@ export default function CategoryPage({ activePage = "vacuum-pump", categorySlug 
                   <a
                     className="inline-flex min-h-11 items-center justify-center rounded-lg border border-orange px-4 py-2 text-sm font-black text-orange transition hover:bg-orange hover:text-white"
                     href={getAmazonUrl(product)}
+                    onClick={() =>
+                      trackAmazonClick({
+                        itemId: product.slug,
+                        itemName: product.model,
+                        pageType: "category",
+                        linkPosition: "product_card",
+                      })
+                    }
                     rel="sponsored nofollow noopener"
                     target="_blank"
                   >
-                    Amazonで確認
+                    価格・在庫を確認
                   </a>
                 </div>
               </article>

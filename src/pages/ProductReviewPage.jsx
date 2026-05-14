@@ -1,17 +1,22 @@
 import Header from "../components/Header.jsx";
 import Icon from "../components/Icon.jsx";
-import { Button, PageShell, ProductImage, SpecChip } from "../components/Ui.jsx";
+import { PageShell, ProductImage, SpecChip } from "../components/Ui.jsx";
 import {
   affiliateDisclosure,
+  beginnerFitLabels,
   getAmazonUrl,
+  getBeginnerMeta,
   getCategory,
+  getDisplayPriceBand,
   getProduct,
+  getProductsByCategory,
   images,
   products,
   reviews,
   site,
   tierLabels,
 } from "../data/siteData.js";
+import { trackAmazonClick } from "../utils/analytics.js";
 import { withBase } from "../utils/routes.js";
 
 function RatingBar({ label, value }) {
@@ -84,10 +89,33 @@ function SectionHeading({ icon, children }) {
   );
 }
 
+function AmazonCta({ product, position, className = "" }) {
+  return (
+    <a
+      className={`cta-sheen inline-flex min-h-12 items-center justify-center rounded-lg bg-orange px-6 py-3 text-sm font-black text-white shadow-cta ${className}`}
+      href={getAmazonUrl(product)}
+      onClick={() =>
+        trackAmazonClick({
+          itemId: product.slug,
+          itemName: product.model,
+          pageType: "product",
+          linkPosition: position,
+        })
+      }
+      rel="sponsored nofollow noopener"
+      target="_blank"
+    >
+      Amazonで価格・在庫を確認
+    </a>
+  );
+}
+
 export default function ProductReviewPage({ activePage = "products", productSlug = "tasco-ta150sw", onNavigate }) {
   const product = getProduct(productSlug) || getProduct("tasco-ta150sw");
   const category = getCategory(product.category);
   const review = reviews.find((item) => item.toolId === product.slug);
+  const beginnerMeta = getBeginnerMeta(product);
+  const categoryProducts = getProductsByCategory(product.category);
 
   return (
     <PageShell>
@@ -103,17 +131,30 @@ export default function ProductReviewPage({ activePage = "products", productSlug
                 {product.model} レビュー
               </h1>
               <p className="mt-3 text-base font-bold leading-8 text-metal">
-                {product.brand}「{product.name}」の価格目安、スペック、向いている人、注意点を整理します。
+                初心者がこの工具を買ってよい条件、買う前の注意、業者へ任せる境界線を先に整理します。
               </p>
             </div>
-            <a
-              className="cta-sheen inline-flex min-h-12 items-center justify-center rounded-lg bg-orange px-6 py-3 text-sm font-black text-white shadow-cta"
-              href={getAmazonUrl(product)}
-              rel="sponsored nofollow noopener"
-              target="_blank"
-            >
-              Amazonで価格を確認
-            </a>
+            <AmazonCta product={product} position="hero" />
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <div className="rounded-lg border border-orange/40 bg-orange/5 p-4">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-orange">Beginner Fit</p>
+              <h2 className="mt-2 text-xl font-black text-navy">{beginnerFitLabels[beginnerMeta.beginnerFit]}</h2>
+              <p className="mt-2 text-sm font-bold leading-7 text-charcoal">{beginnerMeta.beginnerUseCase}</p>
+            </div>
+            <div className="rounded-lg border border-metal-200 bg-paper p-4">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-steel">Price Band</p>
+              <h2 className="mt-2 text-xl font-black text-navy">{getDisplayPriceBand(product)}</h2>
+              <p className="mt-2 text-sm font-bold leading-7 text-charcoal">
+                具体価格は変動します。購入前にAmazonで価格・在庫・販売元を確認してください。
+              </p>
+            </div>
+            <div className="rounded-lg border border-metal-200 bg-paper p-4">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-steel">Service Boundary</p>
+              <h2 className="mt-2 text-xl font-black text-navy">無理なら業者へ</h2>
+              <p className="mt-2 text-sm font-bold leading-7 text-charcoal">{beginnerMeta.serviceBoundary}</p>
+            </div>
           </div>
 
           <div className="mt-7 grid gap-6 lg:grid-cols-[1.05fr_1fr]">
@@ -152,8 +193,8 @@ export default function ProductReviewPage({ activePage = "products", productSlug
                   {[
                     ["ブランド", product.brand],
                     ["型番", product.model],
-                    ["価格目安", product.priceRange],
-                    ["希望小売", product.listPrice],
+                    ["価格帯", getDisplayPriceBand(product)],
+                    ["初心者用途", beginnerMeta.beginnerUseCase],
                     ["カテゴリ", category?.label || "-"],
                     ["向く人", product.targetUser],
                   ].map(([label, value]) => (
@@ -169,14 +210,66 @@ export default function ProductReviewPage({ activePage = "products", productSlug
             </div>
           </div>
 
+          <div className="mt-6 overflow-hidden rounded-lg border border-metal-300 bg-white shadow-panel">
+            <div className="border-b border-metal-200 bg-paper px-4 py-3">
+              <SectionHeading icon="⚡">3秒で選ぶ早見表</SectionHeading>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-[760px] w-full border-collapse text-sm">
+                <thead>
+                  <tr className="bg-steel text-white">
+                    {["用途", "候補", "価格帯", "初心者判断", "Amazon"].map((header) => (
+                      <th className="border border-white/15 px-4 py-3 text-center font-black" key={header}>
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {categoryProducts.map((item) => {
+                    const meta = getBeginnerMeta(item);
+                    return (
+                      <tr className={item.slug === product.slug ? "bg-orange/10" : "odd:bg-white even:bg-paper"} key={item.slug}>
+                        <td className="border border-metal-200 px-4 py-3 font-bold leading-7">{meta.beginnerUseCase}</td>
+                        <td className="border border-metal-200 px-4 py-3 font-black text-navy">
+                          <a
+                            className="hover:text-orange hover:underline"
+                            href={withBase(`/products/${item.slug}/`)}
+                            onClick={(event) => {
+                              if (!onNavigate) return;
+                              event.preventDefault();
+                              onNavigate(`/products/${item.slug}/`);
+                            }}
+                          >
+                            {item.model}
+                          </a>
+                        </td>
+                        <td className="border border-metal-200 px-4 py-3 text-center font-black text-orange">
+                          {getDisplayPriceBand(item)}
+                        </td>
+                        <td className="border border-metal-200 px-4 py-3 font-bold leading-7">
+                          {beginnerFitLabels[meta.beginnerFit]}
+                        </td>
+                        <td className="border border-metal-200 px-4 py-3 text-center">
+                          <AmazonCta className="min-h-10 px-4 py-2 text-xs" product={item} position="quick_table" />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <div className="mt-6 rounded-lg border border-metal-200 bg-paper p-4">
-            <SectionHeading icon="📝">レビュー要約</SectionHeading>
+            <SectionHeading icon="📝">最初の1台ならこれで足りるか</SectionHeading>
             <p className="mt-2 text-sm font-bold leading-7 text-charcoal">{product.reviewSummary}</p>
+            <p className="mt-2 text-sm font-bold leading-7 text-charcoal">{beginnerMeta.riskNote}</p>
           </div>
 
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
             <ReviewList icon="✅" title="購入メリット" items={product.benefits} mark="check" />
-            <ReviewList icon="⚠️" title="注意点" items={product.cautions} mark="info" />
+            <ReviewList icon="⚠️" title="初心者の注意点" items={[...product.cautions, beginnerMeta.riskNote]} mark="info" />
             <ReviewList
               currentProduct={product}
               icon="🔁"
@@ -188,16 +281,24 @@ export default function ProductReviewPage({ activePage = "products", productSlug
             />
           </div>
 
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="rounded-lg border border-metal-200 bg-white p-4 shadow-panel">
+              <SectionHeading icon="○">買って失敗しにくい条件</SectionHeading>
+              <p className="mt-2 text-sm font-bold leading-7 text-charcoal">
+                {beginnerMeta.beginnerUseCase}が目的で、対応冷媒・付属品・接続口径を確認できる場合に候補になります。
+              </p>
+            </div>
+            <div className="rounded-lg border border-metal-200 bg-white p-4 shadow-panel">
+              <SectionHeading icon="×">初心者には過剰なケース</SectionHeading>
+              <p className="mt-2 text-sm font-bold leading-7 text-charcoal">
+                1回だけの掃除、水漏れ確認だけ、または電気工事・冷媒作業が主目的なら、工具購入より業者相談が安全です。
+              </p>
+            </div>
+          </div>
+
           <div className="mt-6 border-t border-metal-200 pt-5">
             <div className="grid gap-3 md:grid-cols-2">
-              <a
-                className="cta-sheen inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-orange px-6 py-3 text-base font-black text-white shadow-cta"
-                href={getAmazonUrl(product)}
-                rel="sponsored nofollow noopener"
-                target="_blank"
-              >
-                Amazonで最新価格を見る
-              </a>
+              <AmazonCta className="w-full text-base" product={product} position="bottom" />
               <a
                 className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-navy px-6 py-3 text-base font-black text-white shadow-metal"
                 href={withBase(`/categories/${product.category}/`)}

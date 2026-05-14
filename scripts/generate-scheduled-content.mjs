@@ -82,6 +82,20 @@ function normalizePost(frontmatter, file) {
   if (frontmatter.updatedDate) {
     post.updatedDate = frontmatter.updatedDate;
   }
+  for (const field of ["intentLevel", "symptomCategory", "monetizationType"]) {
+    if (frontmatter[field]) post[field] = frontmatter[field];
+  }
+  for (const field of ["recommendedProductSlugs", "nextBeginnerPostSlugs"]) {
+    if (frontmatter[field]) {
+      post[field] = frontmatter[field]
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+  }
+  if (frontmatter.safetyWarningRequired) {
+    post.safetyWarningRequired = frontmatter.safetyWarningRequired === "true";
+  }
   return post;
 }
 

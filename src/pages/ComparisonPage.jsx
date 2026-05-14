@@ -1,39 +1,15 @@
 import Header from "../components/Header.jsx";
 import Icon from "../components/Icon.jsx";
-import { Button, PageShell, ProductImage } from "../components/Ui.jsx";
-import { affiliateDisclosure, categoryMeta, productComparisonRows } from "../data/siteData.js";
+import { Button, PageShell } from "../components/Ui.jsx";
+import { affiliateDisclosure, beginnerComparisonRows, buildAmazonSearchUrl, getAmazonUrl } from "../data/siteData.js";
+import { trackAmazonClick } from "../utils/analytics.js";
 import { withBase } from "../utils/routes.js";
 
-const headers = ["工具", "価格", "重量", "対応冷媒", "精度 / 性能", "初心者向け", "プロ向け", "総合評価"];
-
-function RatingStars({ value, size = 15 }) {
-  const rating = Number(value) || 0;
-  const width = `${Math.max(0, Math.min(5, rating)) * 20}%`;
-  const stars = [0, 1, 2, 3, 4];
-
-  return (
-    <span aria-label={`総合評価 ${rating.toFixed(1)}`} className="relative inline-flex">
-      <span className="flex text-metal-200">
-        {stars.map((star) => (
-          <Icon className="shrink-0" fill="currentColor" key={`base-${star}`} name="star" size={size} strokeWidth={1.4} />
-        ))}
-      </span>
-      <span className="absolute inset-y-0 left-0 flex overflow-hidden text-orange" style={{ width }}>
-        {stars.map((star) => (
-          <Icon className="shrink-0" fill="currentColor" key={`filled-${star}`} name="star" size={size} strokeWidth={1.4} />
-        ))}
-      </span>
-    </span>
-  );
-}
+const headers = ["用途", "おすすめ", "価格帯", "初心者の扱いやすさ", "失敗しにくさ", "Amazon確認"];
 
 export default function ComparisonPage({ activePage = "comparison", onNavigate }) {
-  const groupedRows = categoryMeta
-    .map((category) => ({
-      ...category,
-      rows: productComparisonRows.filter((row) => row.product.category === category.slug),
-    }))
-    .filter((category) => category.rows.length);
+  const beginnerRows = beginnerComparisonRows.filter((row) => row.tier === "beginner");
+  const nextRows = beginnerComparisonRows.filter((row) => row.tier === "next");
 
   return (
     <PageShell>
@@ -41,104 +17,62 @@ export default function ComparisonPage({ activePage = "comparison", onNavigate }
       <section className="px-5 py-8 md:py-10 lg:px-8">
         <div className="mx-auto max-w-7xl rounded-lg border border-metal-300 bg-white p-5 shadow-metal md:p-8">
           <h1 className="text-center text-3xl font-black text-navy md:text-5xl">
-            安さだけで選ばない工具比較
+            初心者のための用途別比較表
           </h1>
-          <p className="mt-3 text-center text-sm font-bold text-metal">
-            価格、性能、使いやすさを総合的に比較しました。
+          <p className="mx-auto mt-3 max-w-3xl text-center text-sm font-bold leading-7 text-metal">
+            型番スペックの前に、まず「何をしたいか」で選びます。家庭用1台、掃除だけ、水漏れ確認、真空引きまでの範囲を分けると買いすぎを防げます。
           </p>
 
-          <div className="mt-8 space-y-8">
-            {groupedRows.map((category) => (
-              <section className="overflow-hidden rounded-lg border border-metal-300 bg-white shadow-panel" key={category.slug}>
-                <div className="border-b border-metal-200 bg-paper px-5 py-4 md:px-6">
-                  <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-[0.14em] text-steel">Category</p>
-                      <h2 className="mt-1 text-2xl font-black text-navy">{category.label}</h2>
-                    </div>
-                    <p className="max-w-2xl text-sm font-bold leading-7 text-metal">{category.summary}</p>
+          <BeginnerTable rows={beginnerRows} onNavigate={onNavigate} />
+
+          <section className="mt-8 rounded-lg border border-metal-200 bg-paper p-5">
+            <div className="flex items-start gap-3">
+              <Icon className="mt-1 shrink-0 text-orange" name="shield" size={22} />
+              <div>
+                <h2 className="text-xl font-black text-navy">初心者が触らない方がいい作業</h2>
+                <p className="mt-2 text-sm font-bold leading-7 text-charcoal">
+                  専用回路やコンセントの電気工事、冷媒充填、冷媒回収、屋根上・壁面架台の高所作業は業者へ依頼してください。工具を買う前に、作業範囲を安全側に区切ることが大切です。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-8 overflow-hidden rounded-lg border border-metal-300 bg-white shadow-panel">
+            <div className="border-b border-metal-200 bg-navy px-5 py-4 text-white">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-orange">Next Step</p>
+              <h2 className="mt-1 text-2xl font-black">副業以上になったら検討</h2>
+            </div>
+            <div className="p-5">
+              {nextRows.map((row) => (
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between" key={row.useCase}>
+                  <div>
+                    <p className="font-black text-navy">{row.useCase}</p>
+                    <p className="mt-1 text-sm font-bold leading-7 text-charcoal">
+                      {row.recommendation}。{row.safety}
+                    </p>
                   </div>
+                  <a
+                    className="inline-flex min-h-12 items-center justify-center rounded-lg bg-navy px-5 py-3 text-sm font-black text-white shadow-metal"
+                    href={withBase(row.path)}
+                    onClick={(event) => {
+                      if (!onNavigate) return;
+                      event.preventDefault();
+                      onNavigate(row.path);
+                    }}
+                  >
+                    詳しく比較する
+                  </a>
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="min-w-[980px] w-full border-collapse text-sm">
-                    <thead>
-                      <tr className="bg-navy text-white">
-                        {headers.map((header) => (
-                          <th className="border border-white/15 px-4 py-4 text-center font-black" key={header}>
-                            {header}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {category.rows.map((row) => (
-                        <tr
-                          className={row.recommended ? "recommended-row bg-orange/10" : "odd:bg-white even:bg-paper"}
-                          key={row.name}
-                        >
-                          <td className="relative border border-metal-200 px-3 py-3 font-black text-navy md:px-4 md:py-4">
-                            {row.recommended ? (
-                              <span className="absolute left-2 top-2 rounded bg-orange px-2 py-1 text-[10px] text-white">
-                                おすすめ
-                              </span>
-                            ) : null}
-                            <div className="flex items-center gap-3 pt-5">
-                              <ProductImage
-                                frameClassName="size-14 shrink-0"
-                                image={row.image}
-                                linkImage={false}
-                                noImageCompact
-                                position={row.imagePosition}
-                                product={row.product}
-                              />
-                              <a
-                                className="transition hover:text-orange hover:underline"
-                                href={withBase(row.path)}
-                                onClick={(event) => {
-                                  if (!onNavigate) return;
-                                  event.preventDefault();
-                                  onNavigate(row.path);
-                                }}
-                              >
-                                {row.name}
-                              </a>
-                            </div>
-                          </td>
-                          <td className="border border-metal-200 px-4 py-4 text-center font-bold">{row.price}</td>
-                          <td className="border border-metal-200 px-4 py-4 text-center font-bold">{row.weight}</td>
-                          <td className="border border-metal-200 px-4 py-4 text-center font-bold leading-6">
-                            {row.refrigerants}
-                          </td>
-                          <td className="border border-metal-200 px-4 py-4 text-center font-bold leading-6">
-                            {row.performance}
-                          </td>
-                          <td className="border border-metal-200 px-4 py-4 text-center text-xl font-black text-navy">
-                            {row.beginner}
-                          </td>
-                          <td className="border border-metal-200 px-4 py-4 text-center text-xl font-black text-navy">
-                            {row.pro}
-                          </td>
-                          <td className="border border-metal-200 px-4 py-4 text-center">
-                            <p className="text-2xl font-black text-navy">{row.rating}</p>
-                            <p className="mt-1 inline-flex">
-                              <RatingStars value={row.rating} />
-                            </p>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-            ))}
-          </div>
+              ))}
+            </div>
+          </section>
 
           <div className="mt-5 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <p className="text-sm font-bold leading-7 text-metal">
-              ◎: 非常におすすめ　○: おすすめ　△: 用途による　×: おすすめしない
+              価格は固定表示ではなく価格帯の目安です。購入前にAmazonで価格・在庫・販売元・対応型番を確認してください。
             </p>
-            <Button className="min-w-72" icon="download" onClick={() => onNavigate?.("ranking")} variant="dark">
-              比較表をダウンロード（PDF）
+            <Button className="min-w-64" onClick={() => onNavigate?.("beginner-kit")} variant="dark">
+              初心者セットを見る
             </Button>
           </div>
           <p className="mt-5 rounded-lg border border-orange/30 bg-orange/5 p-4 text-sm font-bold leading-7 text-charcoal">
@@ -147,5 +81,75 @@ export default function ComparisonPage({ activePage = "comparison", onNavigate }
         </div>
       </section>
     </PageShell>
+  );
+}
+
+function BeginnerTable({ rows, onNavigate }) {
+  return (
+    <div className="mt-8 overflow-hidden rounded-lg border border-metal-300 bg-white shadow-panel">
+      <div className="overflow-x-auto">
+        <table className="min-w-[980px] w-full border-collapse text-sm">
+          <thead>
+            <tr className="bg-steel text-white">
+              {headers.map((header) => (
+                <th className="border border-white/15 px-4 py-4 text-center font-black" key={header}>
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => {
+              const href = row.product ? getAmazonUrl(row.product) : buildAmazonSearchUrl(row.amazonSearch);
+              return (
+                <tr className="odd:bg-white even:bg-paper" key={row.useCase}>
+                  <td className="border border-metal-200 px-4 py-4 font-black leading-7 text-navy">{row.useCase}</td>
+                  <td className="border border-metal-200 px-4 py-4 font-bold leading-7">
+                    {row.path ? (
+                      <a
+                        className="text-steel underline-offset-4 hover:text-orange hover:underline"
+                        href={withBase(row.path)}
+                        onClick={(event) => {
+                          if (!onNavigate) return;
+                          event.preventDefault();
+                          onNavigate(row.path);
+                        }}
+                      >
+                        {row.recommendation}
+                      </a>
+                    ) : (
+                      row.recommendation
+                    )}
+                  </td>
+                  <td className="border border-metal-200 px-4 py-4 text-center font-black text-orange">
+                    {row.priceBand}
+                  </td>
+                  <td className="border border-metal-200 px-4 py-4 font-bold leading-7 text-charcoal">{row.ease}</td>
+                  <td className="border border-metal-200 px-4 py-4 font-bold leading-7 text-charcoal">{row.safety}</td>
+                  <td className="border border-metal-200 px-4 py-4 text-center">
+                    <a
+                      className="cta-sheen inline-flex min-h-11 items-center justify-center rounded-lg bg-orange px-4 py-2 text-xs font-black text-white shadow-cta"
+                      href={href}
+                      onClick={() =>
+                        trackAmazonClick({
+                          itemId: row.product?.slug || row.useCase,
+                          itemName: row.recommendation,
+                          pageType: "comparison",
+                          linkPosition: "beginner_table",
+                        })
+                      }
+                      rel="sponsored nofollow noopener"
+                      target="_blank"
+                    >
+                      価格・在庫を確認
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }

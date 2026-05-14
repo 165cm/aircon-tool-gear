@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Icon from "./Icon.jsx";
 import { getAmazonImageUrl, getAmazonUrl, trustItems } from "../data/siteData.js";
+import { trackAmazonClick } from "../utils/analytics.js";
 import { withBase } from "../utils/routes.js";
 
 export function Button({ children, icon = "arrow", variant = "primary", className = "", ...props }) {
@@ -147,6 +148,14 @@ export function ProductImage({
           aria-label={`${product.brand} ${product.model}をAmazonで確認`}
           className={`product-image-frame block overflow-hidden rounded-md border border-metal-100 bg-white ${frameClassName} ${className}`}
           href={getAmazonUrl(product)}
+          onClick={() =>
+            trackAmazonClick({
+              itemId: product.slug,
+              itemName: product.model,
+              pageType: "product_image",
+              linkPosition: "image_fallback",
+            })
+          }
           rel="sponsored nofollow noopener"
           target="_blank"
         >
@@ -201,6 +210,14 @@ export function ProductImage({
         aria-label={`${product.brand} ${product.model}をAmazonで確認`}
         className={`product-image-frame block overflow-hidden rounded-md border border-metal-100 bg-white bg-no-repeat ${frameClassName} ${className}`}
         href={getAmazonUrl(product)}
+        onClick={() =>
+          trackAmazonClick({
+            itemId: product.slug,
+            itemName: product.model,
+            pageType: "product_image",
+            linkPosition: "image",
+          })
+        }
         rel="sponsored nofollow noopener"
         style={fallbackStyle}
         target="_blank"

@@ -4,8 +4,8 @@ import { scheduledPosts } from "../src/data/scheduledPosts.js";
 
 const root = process.cwd();
 const contentDir = path.join(root, "content", "scheduled");
-const expectedTotal = 76;
-const expectedMayCount = Math.ceil(expectedTotal * 0.7);
+const expectedTotal = 86;
+const expectedMayCount = 64;
 const finalTargetDate = "2026-07-31";
 const scheduledCompletionDate = "2026-07-20";
 

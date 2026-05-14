@@ -1,7 +1,7 @@
 import Header from "../components/Header.jsx";
 import Icon from "../components/Icon.jsx";
 import { Button, PageShell, SpecChip } from "../components/Ui.jsx";
-import { affiliateDisclosure, getProduct, images, starterKits } from "../data/siteData.js";
+import { affiliateDisclosure, getDisplayPriceBand, getProduct, images, starterKits } from "../data/siteData.js";
 import { withBase } from "../utils/routes.js";
 
 const checklist = [
@@ -38,7 +38,7 @@ export default function BeginnerPage({ activePage = "beginner-kit", kitSlug, onN
               {pageTitle}
             </h1>
             <p className="mt-3 max-w-4xl text-sm font-bold leading-7 text-metal md:text-base">
-              添付ラインナップを元に、DIY・副業継続・独立志望の3段階で必要工具を整理しました。最初から完璧を狙うより、買い直しが少ないミドル構成を軸に考えるのがおすすめです。
+              家庭用1台のDIYや不調確認で、買いすぎを避けながら必要な工具だけを整理します。最初からプロ装備を揃えるより、作業範囲を決めて安全に始めるのがおすすめです。
             </p>
           </div>
 
@@ -106,7 +106,7 @@ export default function BeginnerPage({ activePage = "beginner-kit", kitSlug, onN
                 <div className="flex flex-col justify-end">
                   <div className="grid grid-cols-2 gap-2">
                     {selectedProducts.slice(0, 4).map((product) => (
-                      <SpecChip key={product.slug} label={product.model} value={product.priceRange} />
+                      <SpecChip key={product.slug} label={product.model} value={getDisplayPriceBand(product)} />
                     ))}
                   </div>
                   <div className="mt-5 border-t border-metal-200 pt-4">

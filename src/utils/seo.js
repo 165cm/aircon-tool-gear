@@ -4,7 +4,7 @@ import { getPublishedScheduledPosts } from "./publishing.js";
 import { buildCanonical } from "./routes.js";
 
 const defaultDescription =
-  "エアコン修理・取付に必要な専門工具を、初心者セットからプロ向け装備まで現場目線で比較。真空ポンプ、ゲージ、フレアツール、トルクレンチ、冷媒回収機、リークテスターを型番別に解説。";
+  "エアコンが冷えない、水漏れする、臭いがする時に業者を呼ぶ前に自分で確認できる範囲を整理。初心者セット、掃除用品、真空ポンプ入門まで失敗しない選び方を解説。";
 
 export function getPageSeo(route) {
   if (route.type === "product") {
@@ -12,7 +12,7 @@ export function getPageSeo(route) {
     if (product) {
       return {
         title: `${product.model} レビュー｜${product.brand} ${product.name}の選び方`,
-        description: `${product.model}の価格目安、スペック、レビュー要約、向いている人、注意点を現場目線で整理。${product.category}カテゴリの比較にも使えます。`,
+        description: `${product.model}は初心者に向くか、買って失敗しにくい条件、業者へ任せる境界線、価格帯と注意点を整理。購入前に価格・在庫を確認できます。`,
         path: `/products/${product.slug}/`,
         jsonLd: schemaGraph(`/products/${product.slug}/`, [
           productJsonLd(product),
@@ -48,8 +48,8 @@ export function getPageSeo(route) {
   }
   if (route.type === "ranking") {
     return {
-      title: "エアコン工具おすすめランキング｜まず揃えるべき必須工具TOP5",
-      description: "TA150SW、TA122GB-1、BBK 700-DPC、TA771BH、TA430Dを中心に、初心者からプロ志向まで使えるエアコン工具をランキングで紹介。",
+      title: "エアコン工具 初心者ランキング｜まず見るべき入門工具TOP5",
+      description: "家庭用1台のDIYや不調確認で買いすぎを避けたい初心者向けに、真空ポンプ、フレアツール、トルクレンチなどの入門候補を紹介。",
       path: "/ranking/",
       jsonLd: schemaGraph("/ranking/", [
         itemListJsonLd(products.filter((product) => product.featured), "/ranking/"),
@@ -138,7 +138,7 @@ export function getPageSeo(route) {
     const publishedPosts = getPublishedScheduledPosts(scheduledPosts);
     return {
       title: "エアコン工具の選び方記事一覧",
-      description: "エアコン工具の選び方、型番比較、施工トラブル対策、季節需要に関する公開済み記事を一覧で確認できます。",
+      description: "エアコンが冷えない、水漏れする、臭いがする、リモコンが効かない時など、業者を呼ぶ前に確認できる初心者向け記事を一覧で確認できます。",
       path: "/posts/",
       jsonLd: schemaGraph("/posts/", [
         itemListJsonLd(publishedPosts, "/posts/"),
@@ -165,7 +165,7 @@ export function getPageSeo(route) {
     };
   }
   return {
-    title: "エアコン工具ギア｜エアコン修理工具おすすめ比較",
+    title: "エアコン工具ギア｜初心者の不調確認と工具選び",
     description: defaultDescription,
     path: "/",
     jsonLd: schemaGraph("/", [
@@ -379,6 +379,18 @@ function comparisonFaqJsonLd() {
 }
 
 function articleFaqJsonLd(post) {
+  if (post?.intentLevel === "L1") {
+    return faqJsonLd([
+      {
+        question: `${post.symptomCategory || post.keyword}で自分で確認できる範囲は？`,
+        answer: "フィルター、リモコン設定、室外機まわり、見える範囲の汚れや詰まりなど、安全に確認できる範囲から切り分けます。",
+      },
+      {
+        question: "どこから業者に頼むべきですか？",
+        answer: "電気工事、冷媒充填、冷媒回収、高所作業、分解が必要な内部修理は初心者が無理に進めず、業者へ相談してください。",
+      },
+    ]);
+  }
   return faqJsonLd([
     {
       question: `${post.title}で最初に確認することは？`,

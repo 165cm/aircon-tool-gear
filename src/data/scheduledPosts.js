@@ -203,6 +203,163 @@ export const scheduledPosts = [
     "summary": "RTQS-41 狭所作業｜現場目線レビューについて、初心者にも分かる基準と中級者が納得できる比較ポイントを整理します。"
   },
   {
+    "slug": "aircon-cleaning-diy-steps",
+    "title": "エアコン掃除を自分でやる手順",
+    "keyword": "エアコン 掃除 自分で",
+    "publishDate": "2026-05-14",
+    "summary": "フィルター、吹き出し口、室外機まわりなど初心者が安全に掃除できる範囲と、分解清掃を業者へ任せる判断基準を整理します。",
+    "intentLevel": "L1",
+    "symptomCategory": "掃除",
+    "monetizationType": "direct-affiliate",
+    "nextBeginnerPostSlugs": [
+      "aircon-smell-mold-check",
+      "aircon-water-leak-causes"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "aircon-gas-leak-self-check",
+    "title": "エアコンのガス漏れを自分で見つける方法",
+    "keyword": "エアコン ガス漏れ 見分け方",
+    "publishDate": "2026-05-14",
+    "summary": "ガス漏れが疑われる時に、初心者が見てよい霜、油汚れ、効きの悪さのサインと、修理を業者へ任せる境界線を整理します。",
+    "intentLevel": "L1",
+    "symptomCategory": "ガス漏れ",
+    "monetizationType": "internal-link",
+    "recommendedProductSlugs": [
+      "elitech-ld-100-plus",
+      "tasco-ta150sv"
+    ],
+    "nextBeginnerPostSlugs": [
+      "leak-check-basic",
+      "vacuum-pump-first-choice"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "aircon-not-cooling-checklist",
+    "title": "エアコンが冷えない時にまず確認すべき7つの原因",
+    "keyword": "エアコン 冷えない 原因",
+    "publishDate": "2026-05-14",
+    "summary": "エアコンが冷えない時に、業者を呼ぶ前に自分で確認できる設定、フィルター、室外機、ガス漏れサインを初心者向けに整理します。",
+    "intentLevel": "L1",
+    "symptomCategory": "冷えない",
+    "monetizationType": "internal-link",
+    "recommendedProductSlugs": [
+      "tasco-ta150sv",
+      "elitech-ld-100-plus"
+    ],
+    "nextBeginnerPostSlugs": [
+      "aircon-tool-beginner-guide",
+      "vacuum-pump-first-choice"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "aircon-rattle-noise-check",
+    "title": "エアコンの異音「カラカラ」音の正体",
+    "keyword": "エアコン 異音 カラカラ",
+    "publishDate": "2026-05-14",
+    "summary": "エアコンからカラカラ、キュルキュル、ポコポコ音がする時に、自分で見られる範囲と修理が必要なサインを整理します。",
+    "intentLevel": "L1",
+    "symptomCategory": "異音",
+    "monetizationType": "direct-affiliate",
+    "nextBeginnerPostSlugs": [
+      "aircon-cleaning-diy-steps"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "aircon-remote-not-working",
+    "title": "エアコンのリモコンが効かない時の確認手順",
+    "keyword": "エアコン リモコン 効かない",
+    "publishDate": "2026-05-14",
+    "summary": "リモコンが効かない時に、電池、送信部、受光部、応急運転、汎用リモコンを順番に確認する初心者向け手順です。",
+    "intentLevel": "L1",
+    "symptomCategory": "リモコン",
+    "monetizationType": "direct-affiliate",
+    "nextBeginnerPostSlugs": [
+      "aircon-not-cooling-checklist"
+    ],
+    "safetyWarningRequired": false
+  },
+  {
+    "slug": "aircon-smell-mold-check",
+    "title": "エアコンの臭いの原因はカビ?タバコ?",
+    "keyword": "エアコン 臭い 原因",
+    "publishDate": "2026-05-14",
+    "summary": "酸っぱい臭い、カビ臭、タバコ臭が気になる時に、初心者が安全に試せる掃除と業者清掃の境界線を整理します。",
+    "intentLevel": "L1",
+    "symptomCategory": "臭い",
+    "monetizationType": "direct-affiliate",
+    "nextBeginnerPostSlugs": [
+      "aircon-cleaning-diy-steps"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "aircon-stops-by-itself",
+    "title": "エアコンが勝手に止まる原因と対策",
+    "keyword": "エアコン 勝手に止まる",
+    "publishDate": "2026-05-14",
+    "summary": "エアコンが途中で止まる時に、タイマー、内部クリーン、霜取り、エラー、ブレーカーを初心者向けに切り分けます。",
+    "intentLevel": "L1",
+    "symptomCategory": "勝手に止まる",
+    "monetizationType": "internal-link",
+    "nextBeginnerPostSlugs": [
+      "aircon-remote-not-working",
+      "aircon-not-cooling-checklist"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "aircon-water-leak-causes",
+    "title": "エアコンから水漏れする原因5選",
+    "keyword": "エアコン 水漏れ 自分で直す",
+    "publishDate": "2026-05-14",
+    "summary": "室内機から水が落ちる時に、ドレン詰まり、汚れ、傾き、施工不良を初心者が安全に切り分ける手順を整理します。",
+    "intentLevel": "L1",
+    "symptomCategory": "水漏れ",
+    "monetizationType": "direct-affiliate",
+    "nextBeginnerPostSlugs": [
+      "aircon-cleaning-diy-steps",
+      "aircon-tool-beginner-guide"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "aircon-weak-airflow-fix",
+    "title": "エアコンの効きが悪い時の対処法",
+    "keyword": "エアコン 効きが悪い",
+    "publishDate": "2026-05-14",
+    "summary": "冷房や暖房の効きが弱い時に、風量、フィルター、室外機、畳数、古さを初心者が順番に確認する手順です。",
+    "intentLevel": "L1",
+    "symptomCategory": "効きが悪い",
+    "monetizationType": "internal-link",
+    "recommendedProductSlugs": [
+      "tasco-ta150sv"
+    ],
+    "nextBeginnerPostSlugs": [
+      "aircon-not-cooling-checklist",
+      "aircon-cleaning-diy-steps"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
+    "slug": "outdoor-unit-noise-check",
+    "title": "室外機がうるさい時の対処法",
+    "keyword": "エアコン 室外機 うるさい",
+    "publishDate": "2026-05-14",
+    "summary": "室外機の振動音、ファン音、設置不良を初心者が安全に確認し、防振ゴムや掃除で対応できる範囲を整理します。",
+    "intentLevel": "L1",
+    "symptomCategory": "室外機騒音",
+    "monetizationType": "direct-affiliate",
+    "nextBeginnerPostSlugs": [
+      "aircon-rattle-noise-check"
+    ],
+    "safetyWarningRequired": true
+  },
+  {
     "slug": "tasco-ta430d-review",
     "title": "TA430D リークテスター 評判｜現場目線レビュー",
     "keyword": "リークテスター エアコン",

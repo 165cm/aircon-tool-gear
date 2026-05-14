@@ -9,8 +9,8 @@ export default function RankingPage({ activePage = "ranking", onNavigate }) {
       <section className="px-5 py-8 md:py-10 lg:px-8">
         <div className="mx-auto max-w-7xl rounded-lg border border-metal-300 bg-white p-5 shadow-metal md:p-8">
           <SectionTitle
-            description="用途の汎用性、信頼性、コストパフォーマンスを総合的に見て、最初に揃えたい工具を並べました。"
-            title="まず揃えるべき 必須工具 TOP5"
+            description="家庭用1台のDIYや不調確認で、買いすぎを避けながら最初に検討しやすい工具を並べました。"
+            title="初心者がまず見る工具 TOP5"
           />
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
             {rankings.map((tool) => (
@@ -19,7 +19,7 @@ export default function RankingPage({ activePage = "ranking", onNavigate }) {
           </div>
           <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-metal-200 pt-6 md:flex-row">
             <p className="max-w-2xl text-sm font-bold leading-7 text-metal">
-              価格だけでなく、現場での扱いやすさ、精度、耐久性、安全性を基準に比較することで、買い直しのリスクを抑えられます。
+              価格だけでなく、扱いやすさ、作業範囲、資格者へ任せる境界線を基準にすると、初心者の買いすぎと危険作業を避けやすくなります。
             </p>
             <Button className="min-w-60" onClick={() => onNavigate?.("comparison")} variant="dark">
               比較表を見る
