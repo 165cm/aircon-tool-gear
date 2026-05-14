@@ -1,0 +1,18 @@
+---
+import { SITE } from '../consts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
+---
+<footer class="mt-16 border-t border-slate-200 bg-white">
+  <div class="mx-auto max-w-5xl px-4 py-8 text-sm text-slate-600">
+    <p class="mb-3 flex flex-wrap gap-x-4 gap-y-2">
+      <a href={`${base}/about/`} class="hover:text-orange-600">運営者情報</a>
+      <a href={`${base}/contact/`} class="hover:text-orange-600">お問い合わせ</a>
+      <a href={`${base}/privacy-policy/`} class="hover:text-orange-600">プライバシーポリシー</a>
+    </p>
+    <p class="text-xs text-slate-500">
+      © {year} {SITE.name} ｜本サイトはアフィリエイト広告（Amazon アソシエイト等）を利用しています。
+    </p>
+  </div>
+</footer>
