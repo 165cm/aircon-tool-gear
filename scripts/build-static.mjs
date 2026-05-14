@@ -43,7 +43,7 @@ for (const route of routes) {
 
 await writeFile(path.join(dist, "sitemap.xml"), sitemap(routes), "utf8");
 await writeFile(path.join(dist, "robots.txt"), robots(), "utf8");
-await writeFile(path.join(dist, "rss.xml"), rss(publishedPosts), "utf8");
+await writeFile(path.join(dist, "rss.xml"), rss([]), "utf8");
 
 async function writeRoute(route) {
   const html = injectMeta(template, route);
@@ -60,6 +60,7 @@ function meta(pathname, title, description, jsonLd = itemListJsonLd(pathname)) {
     description: seo.description || description,
     canonical: `${site.url}${pathname === "/" ? "/" : pathname}`,
     jsonLd: seo.jsonLd || jsonLd,
+    noindex: Boolean(seo.noindex),
     staticContent: buildStaticContent(pathname, seo.title || title, seo.description || description),
   };
 }
@@ -69,6 +70,7 @@ function injectMeta(html, route) {
   const tags = [
     `<title>${escapeHtml(title)}</title>`,
     `<meta name="description" content="${escapeHtml(route.description)}" />`,
+    `<meta name="robots" content="${route.noindex ? "noindex, nofollow" : "index, follow"}" />`,
     `<link rel="canonical" href="${route.canonical}" />`,
     `<meta property="og:title" content="${escapeHtml(route.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(route.description)}" />`,
@@ -186,6 +188,7 @@ function articleJsonLd(post) {
 
 function sitemap(routeList) {
   const urls = routeList
+    .filter((route) => !route.noindex)
     .map(
       (route) =>
         `  <url><loc>${route.canonical}</loc><lastmod>${route.lastmod || gitLastmod}</lastmod><changefreq>${route.path.startsWith("/posts/") ? "weekly" : "monthly"}</changefreq></url>`,

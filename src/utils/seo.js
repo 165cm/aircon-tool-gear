@@ -116,6 +116,7 @@ export function getPageSeo(route) {
         title: post.title,
         description: post.summary,
         path: `/posts/${post.slug}/`,
+        noindex: true,
         jsonLd: schemaGraph(`/posts/${post.slug}/`, [
           articleJsonLd(post.title, `/posts/${post.slug}/`, post),
           breadcrumbJsonLd([
@@ -131,6 +132,7 @@ export function getPageSeo(route) {
       title: "エアコン工具の選び方｜初心者が失敗しない基準",
       description: "エアコン修理工具を初めて揃える人向けに、真空ポンプ、ゲージ、フレア、トルク、リーク確認の選び方を解説。",
       path: `/posts/${route.slug}/`,
+      noindex: true,
       jsonLd: articleJsonLd("エアコン工具の選び方", `/posts/${route.slug}/`),
     };
   }
@@ -140,6 +142,7 @@ export function getPageSeo(route) {
       title: "エアコン工具の選び方記事一覧",
       description: "エアコンが冷えない、水漏れする、臭いがする、リモコンが効かない時など、業者を呼ぶ前に確認できる初心者向け記事を一覧で確認できます。",
       path: "/posts/",
+      noindex: true,
       jsonLd: schemaGraph("/posts/", [
         itemListJsonLd(publishedPosts, "/posts/"),
         breadcrumbJsonLd([
@@ -428,6 +431,7 @@ export function applySeo(route) {
   setMeta("og:description", seo.description, "property");
   setMeta("og:type", "website", "property");
   setMeta("og:url", buildCanonical(seo.path), "property");
+  setMeta("robots", seo.noindex ? "noindex, nofollow" : "index, follow");
 }
 
 function setMeta(name, content, key = "name") {
