@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<BaseLayout
+  title="プライバシーポリシー"
+  description="エアコン助かるラボにおける、広告・アフィリエイト・個人情報・Cookieの取り扱いと免責事項について。"
+>
+  <h1 class="text-2xl font-bold text-slate-900 md:text-3xl">プライバシーポリシー・運用方針</h1>
+
+  <div class="mt-6 space-y-6 text-sm leading-relaxed text-slate-700">
+    <section>
+      <h2 class="text-lg font-semibold text-slate-900">1. 運営者情報</h2>
+      <p class="mt-2">
+        本サイト「{SITE.name}」は個人運営のメディアサイトです。連絡先は
+        <a href={`${base}/contact/`} class="text-orange-600 underline underline-offset-2">お問い合わせページ</a>
+        に記載しています。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold text-slate-900">2. アフィリエイト広告について</h2>
+      <p class="mt-2">本サイトは以下のアフィリエイトプログラムに参加しており、商品・サービスの紹介により収益を得る場合があります。</p>
+      <ul class="mt-2 list-disc pl-5">
+        <li>Amazon アソシエイト・プログラム</li>
+        <li>もしもアフィリエイト・A8.net・アクセストレード・バリューコマース・afb 等の ASP 経由の広告</li>
+      </ul>
+      <p class="mt-2">「Amazon のアソシエイトとして、当サイトは適格販売により収入を得ています。」</p>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold text-slate-900">3. 景品表示法（ステルスマーケティング規制）への対応</h2>
+      <p class="mt-2">
+        アフィリエイト広告を含むページには、ファーストビュー位置に「PR」表記を行っています。広告・宣伝に該当する記事は、本文中でも明確に区別できるよう運用しています。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold text-slate-900">4. 免責事項</h2>
+      <p class="mt-2">
+        掲載情報は公開時点での公開情報・運営者の研修中の知見に基づきます。価格・在庫・仕様は変動するため、購入前に必ず Amazon およびメーカー公式情報をご確認ください。本サイトの情報利用により生じた損害について、運営者は一切の責任を負いません。
+      </p>
+      <p class="mt-2">
+        電気工事、冷媒充填・回収、高所作業など、資格や安全管理を要する作業は、すべて有資格者・専門業者へご依頼ください。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold text-slate-900">5. Cookie・アクセス解析</h2>
+      <p class="mt-2">
+        本サイトは Google アナリティクス（GA4）および Google Tag Manager を利用し、ユーザーの閲覧傾向を匿名で計測しています。Cookie の利用を希望しない場合は、ブラウザの設定で Cookie を無効化してください。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold text-slate-900">6. 個人情報の取り扱い</h2>
+      <p class="mt-2">
+        お問い合わせフォームを通じて取得した情報は、お問い合わせへの回答以外の目的では使用しません。第三者への提供は、法令に基づく場合および本人の同意がある場合を除き行いません。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold text-slate-900">7. ポリシーの変更</h2>
+      <p class="mt-2">本ポリシーは予告なく変更される場合があります。重要な変更は本ページで告知します。</p>
+    </section>
+  </div>
+</BaseLayout>

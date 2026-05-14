@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="運営者プロフィール"
+  description="エアコン助かるラボの運営者プロフィール。現在エアコン修理エンジニアとして研修中の立場から、家庭で安全にできるチェック・買い物判断を発信しています。"
+>
+  <h1 class="text-2xl font-bold text-slate-900 md:text-3xl">運営者プロフィール</h1>
+
+  <section class="mt-6 rounded-lg border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold text-slate-900">運営者</h2>
+    <p class="mt-2 text-sm leading-relaxed text-slate-700">
+      エアコン助かるラボ 編集部（運営: 165cm）
+    </p>
+    <p class="mt-3 text-sm leading-relaxed text-slate-700">
+      2026年現在、エアコン修理エンジニアとして研修中。実機・現場で得た知識をもとに、
+      家庭で安全にできるチェック範囲、業者依頼の判断基準、製品選びの考え方を、
+      過度に煽らず、できることとできないことを分けて発信します。
+    </p>
+  </section>
+
+  <section class="mt-6 rounded-lg border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold text-slate-900">記事の作り方</h2>
+    <ul class="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
+      <li>・実機で触ったもの・現場で見た範囲は、その旨を明示してレビューします。</li>
+      <li>・未検証の情報はメーカー公式・取扱説明書・公的機関の情報源を一次ソースとして引用します。</li>
+      <li>・「絶対」「最強」「失敗しない」などの断定的な表現は避け、条件付きで判断材料を提示します。</li>
+      <li>・誤りに気づいたら速やかに修正し、更新履歴を残します。</li>
+    </ul>
+  </section>
+
+  <section class="mt-6 rounded-lg border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold text-slate-900">取り扱う範囲・取り扱わない範囲</h2>
+    <p class="mt-3 text-sm leading-relaxed text-slate-700">
+      <strong class="font-semibold text-slate-900">取り扱う:</strong>
+      エアコン本体の選び方、フィルター掃除、リモコン不調、効きが悪い時のチェック、室外機まわりの確認、結露・カビ対策、電気代節約。
+    </p>
+    <p class="mt-2 text-sm leading-relaxed text-slate-700">
+      <strong class="font-semibold text-slate-900">取り扱わない（業者依頼推奨）:</strong>
+      電源工事、内部洗浄、冷媒の充填・回収、ガス漏れ修理、高所作業、業務用エアコン、移設・取付。
+    </p>
+  </section>
+</BaseLayout>

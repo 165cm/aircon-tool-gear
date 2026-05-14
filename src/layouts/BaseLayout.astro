@@ -1,0 +1,68 @@
+---
+import { SITE } from '../consts';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PrBadge from '../components/PrBadge.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  showPrBadge?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  noindex = false,
+  showPrBadge = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+---
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-52H347R8');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="google-site-verification" content="KCrmsH6TCxCRmvOY8y0czMvPyZ2keG1Lh93qY_TS8lo" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <title>{fullTitle}</title>
+  </head>
+  <body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-52H347R8"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {showPrBadge && <PrBadge />}
+    <Header />
+    <main class="mx-auto max-w-5xl px-4 py-8 md:py-12">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
