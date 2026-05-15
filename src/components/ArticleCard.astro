@@ -1,0 +1,25 @@
+---
+import { CATEGORY_LABEL } from '../content.config';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  category: 'symptoms' | 'by-size' | 'energy-saving' | 'cleaning';
+  publishDate: Date;
+}
+
+const { href, title, description, category, publishDate } = Astro.props;
+const dateLabel = publishDate.toISOString().slice(0, 10);
+---
+<a
+  href={href}
+  class="block rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:border-orange-300 hover:shadow"
+>
+  <div class="flex items-center gap-2 text-xs text-slate-500">
+    <span class="rounded bg-slate-100 px-2 py-0.5 font-medium text-slate-700">{CATEGORY_LABEL[category]}</span>
+    <time datetime={dateLabel}>{dateLabel}</time>
+  </div>
+  <h3 class="mt-2 text-base font-semibold text-slate-900 md:text-lg">{title}</h3>
+  <p class="mt-1 text-sm leading-relaxed text-slate-700">{description}</p>
+</a>

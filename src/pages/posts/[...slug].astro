@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { CATEGORY_LABEL } from '../../content.config';
+import { getProduct } from '../../data/products';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const publishLabel = post.data.publishDate.toISOString().slice(0, 10);
+const updatedLabel = post.data.updatedDate?.toISOString().slice(0, 10);
+const relatedProducts = post.data.products.map(getProduct).filter((p): p is NonNullable<typeof p> => Boolean(p));
+const categoryPath = `${base}/${post.data.category}/`;
+---
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  showPrBadge={relatedProducts.length > 0}
+>
+  <nav class="text-xs text-slate-500">
+    <a href={`${base}/`} class="hover:text-orange-600">ホーム</a>
+    <span class="mx-1">/</span>
+    <a href={categoryPath} class="hover:text-orange-600">{CATEGORY_LABEL[post.data.category]}</a>
+    <span class="mx-1">/</span>
+    <span>{post.data.title}</span>
+  </nav>
+
+  <article class="article-body mt-4">
+    <header>
+      <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+        <span class="rounded bg-slate-100 px-2 py-0.5 font-medium text-slate-700">
+          {CATEGORY_LABEL[post.data.category]}
+        </span>
+        <time datetime={publishLabel}>公開: {publishLabel}</time>
+        {updatedLabel && <time datetime={updatedLabel}>更新: {updatedLabel}</time>}
+      </div>
+      <h1 class="mt-3 text-2xl font-bold leading-snug text-slate-900 md:text-3xl">{post.data.title}</h1>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">{post.data.description}</p>
+    </header>
+
+    <Content />
+  </article>
+
+  {relatedProducts.length > 0 && (
+    <section class="mt-12">
+      <h2 class="border-l-4 border-orange-500 pl-3 text-xl font-bold text-slate-900 md:text-2xl">この記事で紹介した用品</h2>
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        {relatedProducts.map((product) => (
+          <ProductCard product={product} pageType={`post-${post.data.category}`} linkPosition="post-related" />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="mt-12 rounded-lg border border-slate-200 bg-white p-6 text-sm text-slate-700">
+    <h2 class="text-lg font-semibold text-slate-900">この記事の運用方針</h2>
+    <ul class="mt-2 space-y-1 leading-relaxed">
+      <li>・本記事は研修中のエアコン修理エンジニアが、家庭で安全にできる範囲を整理したものです。</li>
+      <li>・実機検証していない情報は、メーカー公式・取扱説明書・公的機関を一次ソースとしています。</li>
+      <li>・電気工事、冷媒充填、高所作業など資格・危険を伴う作業は業者へ依頼してください。</li>
+      <li>・記事内の商品リンクは Amazon 等のアフィリエイトリンクを含みます（<a href={`${base}/privacy-policy/`}>詳細</a>）。</li>
+    </ul>
+  </section>
+</BaseLayout>
