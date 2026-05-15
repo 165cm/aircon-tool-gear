@@ -1,0 +1,61 @@
+---
+import { buildAmazonSearchUrl } from '../data/products';
+
+interface Props {
+  search: string;
+  label?: string;
+  itemId: string;
+  itemName: string;
+  pageType?: string;
+  linkPosition?: string;
+  variant?: 'button' | 'inline';
+}
+
+const {
+  search,
+  label = 'Amazon で価格・在庫を確認',
+  itemId,
+  itemName,
+  pageType = 'unknown',
+  linkPosition = 'inline',
+  variant = 'button',
+} = Astro.props;
+
+const href = buildAmazonSearchUrl(search);
+
+const buttonClass =
+  'inline-flex items-center justify-center rounded-md bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600 md:text-base';
+const inlineClass =
+  'text-orange-700 underline decoration-orange-300 underline-offset-2 hover:text-orange-800';
+
+const linkId = `amazon-${itemId}-${linkPosition}`;
+---
+<a
+  id={linkId}
+  href={href}
+  rel="sponsored nofollow noopener"
+  target="_blank"
+  data-item-id={itemId}
+  data-item-name={itemName}
+  data-page-type={pageType}
+  data-link-position={linkPosition}
+  class={variant === 'button' ? buttonClass : inlineClass}
+>
+  {label}
+</a>
+
+<script define:vars={{ linkId, itemId, itemName, pageType, linkPosition }}>
+  const link = document.getElementById(linkId);
+  if (link) {
+    link.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'outbound_click_amazon',
+        item_id: itemId,
+        item_name: itemName,
+        page_type: pageType,
+        link_position: linkPosition,
+      });
+    });
+  }
+</script>

@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORY_LABEL, CATEGORY_DESCRIPTION } from '../content.config';
+
+const CATEGORY = 'by-size' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posts = (await getCollection('posts', (entry) => entry.data.category === CATEGORY)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+---
+<BaseLayout title={CATEGORY_LABEL[CATEGORY]} description={CATEGORY_DESCRIPTION[CATEGORY]}>
+  <h1 class="text-2xl font-bold text-slate-900 md:text-3xl">{CATEGORY_LABEL[CATEGORY]}</h1>
+  <p class="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+    {CATEGORY_DESCRIPTION[CATEGORY]}
+  </p>
+
+  {posts.length === 0 ? (
+    <p class="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+      このカテゴリの記事は順次公開予定です。
+    </p>
+  ) : (
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {posts.map((post) => (
+        <ArticleCard
+          href={`${base}/posts/${post.id}/`}
+          title={post.data.title}
+          description={post.data.description}
+          category={post.data.category}
+          publishDate={post.data.publishDate}
+        />
+      ))}
+    </div>
+  )}
+
+  <section class="mt-12 rounded-lg border border-slate-200 bg-white p-6">
+    <h2 class="text-lg font-semibold text-slate-900">畳数と能力の目安（一般家庭）</h2>
+    <p class="mt-2 text-sm leading-relaxed text-slate-700">
+      畳数表示は <strong class="font-semibold text-slate-900">「冷房能力」</strong>と <strong class="font-semibold text-slate-900">「暖房能力」</strong>から計算されます。木造・南向き・最上階・気密性の低い住宅ではワンサイズ上を、高断熱住宅ではワンサイズ下も検討できます。
+    </p>
+    <ul class="mt-3 space-y-1 text-sm leading-relaxed text-slate-700">
+      <li>・6畳用 = 冷房 2.2kW / 暖房 2.5kW 目安（寝室・子供部屋）</li>
+      <li>・8畳用 = 冷房 2.5kW / 暖房 2.8kW 目安</li>
+      <li>・10畳用 = 冷房 2.8kW / 暖房 3.6kW 目安（LDK 入口）</li>
+      <li>・14畳用 = 冷房 4.0kW / 暖房 5.0kW 目安（LDK 標準）</li>
+      <li>・18〜20畳用 = 冷房 5.6kW / 暖房 6.7kW 目安（200V 必須）</li>
+    </ul>
+  </section>
+</BaseLayout>

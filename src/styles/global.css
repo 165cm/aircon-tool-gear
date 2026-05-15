@@ -5,3 +5,33 @@
 html {
   scroll-behavior: smooth;
 }
+
+@layer components {
+  .article-body h2 {
+    @apply mt-10 border-l-4 border-orange-500 pl-3 text-xl font-bold text-slate-900 md:text-2xl;
+  }
+  .article-body h3 {
+    @apply mt-6 text-lg font-semibold text-slate-900;
+  }
+  .article-body p {
+    @apply mt-3 text-sm leading-relaxed text-slate-700 md:text-base;
+  }
+  .article-body ul {
+    @apply mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-700 md:text-base;
+  }
+  .article-body ol {
+    @apply mt-3 list-decimal space-y-1 pl-5 text-sm leading-relaxed text-slate-700 md:text-base;
+  }
+  .article-body strong {
+    @apply font-semibold text-slate-900;
+  }
+  .article-body a {
+    @apply text-orange-700 underline decoration-orange-300 underline-offset-2 hover:text-orange-800;
+  }
+  .article-body blockquote {
+    @apply mt-4 border-l-4 border-slate-300 pl-4 text-sm italic text-slate-600;
+  }
+  .article-body code {
+    @apply rounded bg-slate-100 px-1 py-0.5 text-xs text-slate-800;
+  }
+}

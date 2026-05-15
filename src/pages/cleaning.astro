@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORY_LABEL, CATEGORY_DESCRIPTION } from '../content.config';
+
+const CATEGORY = 'cleaning' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posts = (await getCollection('posts', (entry) => entry.data.category === CATEGORY)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+---
+<BaseLayout title={CATEGORY_LABEL[CATEGORY]} description={CATEGORY_DESCRIPTION[CATEGORY]}>
+  <h1 class="text-2xl font-bold text-slate-900 md:text-3xl">{CATEGORY_LABEL[CATEGORY]}</h1>
+  <p class="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+    {CATEGORY_DESCRIPTION[CATEGORY]}
+  </p>
+
+  {posts.length === 0 ? (
+    <p class="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+      このカテゴリの記事は順次公開予定です。
+    </p>
+  ) : (
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {posts.map((post) => (
+        <ArticleCard
+          href={`${base}/posts/${post.id}/`}
+          title={post.data.title}
+          description={post.data.description}
+          category={post.data.category}
+          publishDate={post.data.publishDate}
+        />
+      ))}
+    </div>
+  )}
+
+  <section class="mt-12 rounded-lg border border-amber-200 bg-amber-50 p-6">
+    <h2 class="text-lg font-semibold text-amber-900">家庭掃除でやってはいけないこと</h2>
+    <ul class="mt-3 space-y-2 text-sm leading-relaxed text-amber-900">
+      <li>・電装部・基板・送風ファンに洗浄スプレーや水をかけない（感電・故障の原因）</li>
+      <li>・お掃除機能付きエアコンの分解は素人がやらない（再組み立て時の不具合・保証失効）</li>
+      <li>・室内機を完全に水洗いしない（内部リーク・カビ拡散の原因）</li>
+      <li>・カビが奥まで広がっている場合は、市販スプレーで「臭いが取れた」と勘違いせず分解洗浄業者へ</li>
+    </ul>
+  </section>
+</BaseLayout>
