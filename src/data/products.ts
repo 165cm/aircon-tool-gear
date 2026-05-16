@@ -21,7 +21,12 @@ export type Product = {
   cautions: string[];
   priceBand: string;
   amazonSearch: string;
+  asin?: string;
 };
+
+export function getProductImageUrl(asin: string): string {
+  return `https://m.media-amazon.com/images/P/${asin}.L.jpg`;
+}
 
 export const CATEGORY_LABEL: Record<ProductCategory, string> = {
   'aircon-main': 'エアコン本体',
@@ -95,6 +100,7 @@ export const PRODUCTS: Product[] = [
     ],
     priceBand: '5,000〜8,000円台',
     amazonSearch: 'アイリスオーヤマ サーキュレーター PCF-SC15T',
+    asin: 'B0CTTFRQ3V',
   },
   {
     slug: 'corona-dehumidifier-cd-h1023',
@@ -140,6 +146,7 @@ export const PRODUCTS: Product[] = [
     ],
     priceBand: '1,000〜2,000円台',
     amazonSearch: 'エアコンリモコン 汎用 K-1028E',
+    asin: 'B0CT8Z2B7F',
   },
   {
     slug: 'aircon-filter-cleaning-brush',
@@ -171,6 +178,7 @@ export const PRODUCTS: Product[] = [
     ],
     priceBand: '800〜1,500円',
     amazonSearch: 'らくハピ エアコン洗浄スプレー Nextplus',
+    asin: 'B084RV3S23',
   },
   {
     slug: 'aircon-cleaning-cover',
@@ -231,6 +239,7 @@ export const PRODUCTS: Product[] = [
     ],
     priceBand: '1,500〜3,000円台',
     amazonSearch: '東京防音 防振ゴム ニューしずか',
+    asin: 'B08CCNSSS4',
   },
 ];
 
