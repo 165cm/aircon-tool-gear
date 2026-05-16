@@ -8,7 +8,8 @@ interface Props {
   itemName: string;
   pageType?: string;
   linkPosition?: string;
-  variant?: 'button' | 'inline';
+  variant?: 'button' | 'inline' | 'wrapper';
+  class?: string;
 }
 
 const {
@@ -19,14 +20,18 @@ const {
   pageType = 'unknown',
   linkPosition = 'inline',
   variant = 'button',
+  class: extraClass = '',
 } = Astro.props;
 
 const href = buildAmazonSearchUrl(search);
 
-const buttonClass =
-  'inline-flex items-center justify-center rounded-md bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600 md:text-base';
-const inlineClass =
-  'text-orange-700 underline decoration-orange-300 underline-offset-2 hover:text-orange-800';
+const baseClass = {
+  button:
+    'inline-flex items-center justify-center rounded-md bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600 md:text-base',
+  inline:
+    'text-orange-700 underline decoration-orange-300 underline-offset-2 hover:text-orange-800',
+  wrapper: 'block',
+}[variant];
 
 const linkId = `amazon-${itemId}-${linkPosition}`;
 ---
@@ -39,9 +44,9 @@ const linkId = `amazon-${itemId}-${linkPosition}`;
   data-item-name={itemName}
   data-page-type={pageType}
   data-link-position={linkPosition}
-  class={variant === 'button' ? buttonClass : inlineClass}
+  class:list={[baseClass, extraClass]}
 >
-  {label}
+  {variant === 'wrapper' ? <slot /> : label}
 </a>
 
 <script define:vars={{ linkId, itemId, itemName, pageType, linkPosition }}>
